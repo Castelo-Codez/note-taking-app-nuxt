@@ -25,11 +25,9 @@ export default defineNuxtConfig({
         isEnabled: true,
         disableServerSideAuth: false,
         globalAppMiddleware: true,
-
         provider: {
             type: "authjs",
             trustHost: false,
-            defaultProvider: "github",
             addDefaultCallbackUrl: true,
         },
         sessionRefresh: {
@@ -43,4 +41,5 @@ export default defineNuxtConfig({
             styles: ["normal", "italic"],
         },
     },
+
 });

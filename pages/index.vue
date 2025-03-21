@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 const {signOut} = useAuth();
-setTimeout(() => {
-    signOut();
-}, 1000);
 </script>
 <template>
     <main
@@ -10,7 +7,7 @@ setTimeout(() => {
         class="min-h-screen flex justify-center items-center dark:bg-lightGray"
     >
         <div>
-
+            <button @click="signOut()">signout</button>
         </div>
     </main>
 </template>

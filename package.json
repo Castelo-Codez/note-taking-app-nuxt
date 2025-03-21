@@ -20,9 +20,11 @@
     "@nuxtjs/tailwindcss": "^6.13.2",
     "@sidebase/nuxt-auth": "^0.10.1",
     "@unhead/vue": "^2.0.0-rc.8",
+    "@vee-validate/zod": "^4.15.0",
     "eslint": "^9.22.0",
     "next-auth": "~4.21.1",
     "nuxt": "^3.16.0",
+    "vee-validate": "^4.15.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

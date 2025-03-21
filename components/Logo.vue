@@ -4,7 +4,7 @@ const colorMode = useColorMode();
 <template>
     <section aria-label="logo section">
         <svg
-            v-if="colorMode.preference == 'dark'"
+            v-if="colorMode.preference !== 'dark'"
             width="95"
             height="28"
             viewBox="0 0 95 28"
