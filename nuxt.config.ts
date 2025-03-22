@@ -12,6 +12,8 @@ export default defineNuxtConfig({
         "@nuxtjs/tailwindcss",
         "@nuxtjs/color-mode",
         "@sidebase/nuxt-auth",
+        "@nuxt/test-utils/module",
+
     ],
     colorMode: {
         preference: "system",
@@ -41,5 +43,4 @@ export default defineNuxtConfig({
             styles: ["normal", "italic"],
         },
     },
-
 });

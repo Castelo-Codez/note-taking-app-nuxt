@@ -47,6 +47,7 @@ function loginWithCred() {
             />
             <span
                 aria-label="email errors"
+                id="emailErrors"
                 class="flex gap-x-1 items-center mt-2 text-sm text-lightRed-dark"
                 v-if="errors.email"
             >
@@ -134,7 +135,7 @@ function loginWithCred() {
             </button>
             <span
                 aria-label="password errors"
-                class="flex items-center gap-x-1  text-sm absolute -bottom-7 text-lightRed-dark"
+                class="flex items-center gap-x-1 text-sm absolute -bottom-7 text-lightRed-dark"
                 v-if="errors.password"
             >
                 <svg
