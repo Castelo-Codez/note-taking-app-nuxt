@@ -11,7 +11,7 @@ const schema = toTypedSchema(
             .min(6, "password min is 7 characters"),
     })
 );
-const {errors, values, defineField} = useForm({
+const {errors, values, defineField, handleSubmit} = useForm({
     validationSchema: schema,
 });
 const [email, emailAttr] = defineField("email");
@@ -26,13 +26,16 @@ function loginWithCred() {
         console.log(values);
     }
 }
+const onSubmit = handleSubmit((values) => {
+    if (!errors) {
+        console.log("clear from errors");
+        console.log(values);
+    }
+});
 </script>
 
 <template>
-    <form
-        class="flex flex-col gap-y-5"
-        @submit="(e: any) => e.preventDefault()"
-    >
+    <form class="flex flex-col gap-y-5" @submit.prevent="onSubmit">
         <div aria-label="email Input">
             <label for="email" class="text-text dark:text-text-dark block mb-3">
                 Email
@@ -66,8 +69,8 @@ function loginWithCred() {
                         d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
                     />
                 </svg>
-                {{ errors.email }}</span
-            >
+                <span> {{ errors.email }}</span>
+            </span>
         </div>
         <div aria-label="password Input" class="relative mb-5">
             <label
@@ -153,8 +156,8 @@ function loginWithCred() {
                         d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
                     />
                 </svg>
-                {{ errors.password }}</span
-            >
+                <span>{{ errors.password }}</span>
+            </span>
         </div>
         <SubmitButton text="login" @click="loginWithCred" />
         <div
