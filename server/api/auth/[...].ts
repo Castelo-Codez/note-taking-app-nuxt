@@ -25,7 +25,7 @@ export default NuxtAuthHandler({
             },
             async authorize(credentials: any, req: any) {
                 const {email, password} = credentials;
-                await connect(useRuntimeConfig().dbUrl).then(async () => {
+                return connect(useRuntimeConfig().dbUrl).then(async () => {
                     const userIsFound = await User.findOne({email});
                     if (userIsFound) {
                         let encryptedPassword = userIsFound.password;
@@ -34,11 +34,13 @@ export default NuxtAuthHandler({
                             encryptedPassword
                         );
                         if (checkPasswordIsCorrect) {
-                            return userIsFound;
+                            return {
+                                ...{email, password},
+                            };
                         }
                         throw new Error("password is incorrect");
                     }
-                    throw new Error("email doesn't exist");
+                    throw new Error("email doesn't exists");
                 });
             },
         }),

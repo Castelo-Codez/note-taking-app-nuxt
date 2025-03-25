@@ -16,11 +16,34 @@ interface UserType {
     Notes: Note[];
 }
 
-const UserSchema = new Schema<UserType>();
+const UserSchema = new Schema<UserType>({
+    username: {
+        required: true,
+        type: String,
+        unique: true,
+    },
+    id: {
+        required: true,
+        type: String,
+        unique: true,
+    },
+    email: {
+        required: true,
+        type: String,
+        unique: true,
+    },
+    password: {
+        required: true,
+        type: String,
+    },
+    Notes: {
+        required: true,
+        type: [],
+    },
+});
 
-UserSchema.pre("save", async (next) => {
+UserSchema.pre("save", async function (next) {
     let salt = await bcrypt.genSalt(10);
-    //@ts-expect-error
     this.password = await bcrypt.hash(this.password, salt);
     next();
 });

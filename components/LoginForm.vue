@@ -121,7 +121,7 @@ if (route.query.error == "password is incorrect") {
                 v-model="password"
                 v-bind="passwordAttr"
                 @input="() => (passwordIsIncorrect = false)"
-                @focs="() => (passwordIsIncorrect = false)"
+                @focus="() => (passwordIsIncorrect = false)"
                 autocomplete="off"
                 name="password"
                 :type="showPassword ? 'text' : 'password'"

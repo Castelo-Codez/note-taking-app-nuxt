@@ -21,11 +21,29 @@ const schema = toTypedSchema(
             }),
     })
 );
-const {errors, values, defineField} = useForm({
+const {errors, defineField, handleSubmit} = useForm({
     validationSchema: schema,
 });
 const [email, emailAttr] = defineField("email");
 const [password, passwordAttr] = defineField("password");
+const isEmailExists = ref("");
+const {signIn} = useAuth();
+const onSubmit = handleSubmit(async (body) => {
+    if (!errors.email && !errors.password) {
+        try {
+            let req = await $fetch("/api/newUser/**", {
+                method: "POST",
+                body,
+            });
+            const {email, password} = req;
+            signIn("credentials", {email, password});
+        } catch (error) {
+            if (error) {
+                isEmailExists.value = error.statusText;
+            }
+        }
+    }
+});
 </script>
 <template>
     <div class="flex justify-center">
@@ -41,10 +59,7 @@ const [password, passwordAttr] = defineField("password");
     >
         Sign up to start organizing your notes and boost your productivity.
     </h2>
-    <form
-        class="flex flex-col gap-y-5"
-        @submit="(e: any) => e.preventDefault()"
-    >
+    <form class="flex flex-col gap-y-5" @submit.prevent="onSubmit">
         <div aria-label="email Input">
             <label for="email" class="text-text dark:text-text-dark block mb-3">
                 Email
@@ -52,6 +67,8 @@ const [password, passwordAttr] = defineField("password");
             <input
                 v-model="email"
                 v-bind="emailAttr"
+                @input="() => (isEmailExists = '')"
+                @focus="() => (isEmailExists = '')"
                 autocomplete="off"
                 type="email"
                 id="email"
@@ -78,6 +95,28 @@ const [password, passwordAttr] = defineField("password");
                     />
                 </svg>
                 {{ errors.email }}</span
+            >
+            <span
+                aria-label="email errors"
+                class="flex gap-x-1 items-center mt-2 text-sm text-lightRed-dark"
+                v-if="isEmailExists"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        class="stroke-lightRed"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
+                    />
+                </svg>
+                {{ isEmailExists }}</span
             >
         </div>
         <div aria-label="password Input" class="relative mb-5">
@@ -146,7 +185,7 @@ const [password, passwordAttr] = defineField("password");
             </button>
             <span
                 aria-label="password errors"
-                class="flex gap-x-1 items-center  absolute -bottom-7 text-sm text-lightRed-dark"
+                class="flex gap-x-1 items-center absolute -bottom-7 text-sm text-lightRed-dark"
                 v-if="errors.password"
             >
                 <svg
