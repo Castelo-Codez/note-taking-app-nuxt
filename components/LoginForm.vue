@@ -138,6 +138,7 @@ const onSubmit = handleSubmit((values) => {
             </button>
             <span
                 aria-label="password errors"
+                id="passwordErrors"
                 class="flex items-center gap-x-1 text-sm absolute -bottom-7 text-lightRed-dark"
                 v-if="errors.password"
             >

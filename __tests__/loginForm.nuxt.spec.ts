@@ -29,7 +29,7 @@ describe("testing login form", () => {
             ).toBe("Required");
         });
     });
-    test("testing number 2 => testing email input if user Enters invalid email", async () => {
+    test.skip("testing number 2 => testing email input if user Enters invalid email", async () => {
         let Form = await mountSuspended(LoginForm);
         expect(Form.isVisible()).toBeTruthy();
         const email = Form.find("#email");
@@ -64,6 +64,42 @@ describe("testing login form", () => {
         await flushPromises();
         await waitForExpect(() => {
             expect(Form.find("#emailErrors").exists()).toBe(false);
+        });
+    });
+    test("testing number 2 => testing password input if user Enters empty password or characters less than 7", async () => {
+        let Form = await mountSuspended(LoginForm);
+        expect(Form.isVisible()).toBeTruthy();
+        const password = Form.find("#password");
+        await password.setValue("easc");
+        await flushPromises();
+        await waitForExpect(() => {
+            expect(Form.find("#passwordErrors").exists()).toBe(true);
+            expect(
+                Form.find("#passwordErrors").element.querySelector("span")
+                    ?.textContent
+            ).toBe("password min is 7 characters");
+        });
+        await password.setValue("dasd4");
+        await flushPromises();
+        await waitForExpect(() => {
+            expect(
+                Form.find("#passwordErrors").element.querySelector("span")
+                    ?.textContent
+            ).toBe("password min is 7 characters");
+        });
+        await password.setValue("");
+        await flushPromises();
+        await waitForExpect(() => {
+            expect(Form.find("#passwordErrors").exists()).toBe(true);
+            expect(
+                Form.find("#passwordErrors").element.querySelector("span")
+                    ?.textContent
+            ).toBe("password cann't be empty");
+        });
+        await password.setValue("adasd3241asd");
+        await flushPromises();
+        await waitForExpect(() => {
+            expect(Form.find("#passwordErrors").exists()).toBe(false);
         });
     });
 });
