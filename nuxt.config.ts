@@ -13,7 +13,6 @@ export default defineNuxtConfig({
         "@nuxtjs/color-mode",
         "@sidebase/nuxt-auth",
         "@nuxt/test-utils/module",
-
     ],
     colorMode: {
         preference: "system",
@@ -22,6 +21,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         clientId: process.env.CLIENT_ID,
         clientSec: process.env.CLIENT_SEC,
+        dbUrl: process.env.DB_URL,
     },
     auth: {
         isEnabled: true,

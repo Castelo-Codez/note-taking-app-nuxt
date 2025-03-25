@@ -11,27 +11,39 @@ const schema = toTypedSchema(
             .min(6, "password min is 7 characters"),
     })
 );
+
 const {errors, values, defineField, handleSubmit} = useForm({
     validationSchema: schema,
 });
 const [email, emailAttr] = defineField("email");
 const [password, passwordAttr] = defineField("password");
 const showPassword = ref(false);
+const route = useRoute();
+const isEmailNotExist = ref(false);
+const passwordIsIncorrect = ref(false);
 const {signIn} = useAuth();
 function signWithGithub() {
     signIn("github", {callbackUrl: "/"});
 }
-function loginWithCred() {
-    if (!errors) {
-        console.log(values);
+async function loginWithCred() {
+    isEmailNotExist.value = false;
+    passwordIsIncorrect.value = false;
+    if (!errors.email && !errors.password) {
+        await signIn("credentials", values);
     }
 }
-const onSubmit = handleSubmit((values) => {
-    if (!errors) {
-        console.log("clear from errors");
-        console.log(values);
+const onSubmit = handleSubmit(async (values) => {
+    if (!errors.email && !errors.password) {
+        signIn("credentials", values);
     }
 });
+
+if (route.query.error == "email doesn't exist") {
+    isEmailNotExist.value = true;
+}
+if (route.query.error == "password is incorrect") {
+    passwordIsIncorrect.value = true;
+}
 </script>
 
 <template>
@@ -43,9 +55,12 @@ const onSubmit = handleSubmit((values) => {
             <input
                 v-model="email"
                 v-bind="emailAttr"
+                @input="() => (isEmailNotExist = false)"
+                @focus="() => (isEmailNotExist = false)"
                 autocomplete="off"
                 type="email"
                 id="email"
+                name="email"
                 class="block p-1 px-3 w-full text-text dark:text-text-dark rounded-md bg-barckground dark:bg-barckground-dark border border-1 border-grayBorder dark:border-grayBorder-dark"
             />
             <span
@@ -71,6 +86,29 @@ const onSubmit = handleSubmit((values) => {
                 </svg>
                 <span> {{ errors.email }}</span>
             </span>
+            <span
+                aria-label="email errors"
+                id="emailErrors"
+                class="flex gap-x-1 items-center mt-2 text-sm text-lightRed-dark"
+                v-if="isEmailNotExist"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        class="stroke-lightRed"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
+                    />
+                </svg>
+                <span> {{ route.query.error }}</span>
+            </span>
         </div>
         <div aria-label="password Input" class="relative mb-5">
             <label
@@ -82,7 +120,10 @@ const onSubmit = handleSubmit((values) => {
             <input
                 v-model="password"
                 v-bind="passwordAttr"
+                @input="() => (passwordIsIncorrect = false)"
+                @focs="() => (passwordIsIncorrect = false)"
                 autocomplete="off"
+                name="password"
                 :type="showPassword ? 'text' : 'password'"
                 id="password"
                 class="block p-1 px-3 w-full text-text dark:text-text-dark rounded-md bg-barckground dark:bg-barckground-dark border border-1 border-grayBorder dark:border-grayBorder-dark"
@@ -158,6 +199,29 @@ const onSubmit = handleSubmit((values) => {
                     />
                 </svg>
                 <span>{{ errors.password }}</span>
+            </span>
+            <span
+                aria-label="password errors"
+                id="passwordErrors"
+                class="flex items-center gap-x-1 text-sm absolute -bottom-7 text-lightRed-dark"
+                v-if="passwordIsIncorrect"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        class="stroke-lightRed"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
+                    />
+                </svg>
+                <span>{{ route.query.error }}</span>
             </span>
         </div>
         <SubmitButton text="login" @click="loginWithCred" />
