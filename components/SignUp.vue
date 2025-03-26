@@ -209,7 +209,7 @@ const onSubmit = handleSubmit(async (body) => {
 
         <SubmitButton text="sign up" />
         <div
-            class="flex justify-center gap-x-4 text-lighterGray dark:text-lighterGray-dark text-sm"
+            class="flex justify-center gap-x-3 text-lighterGray dark:text-lighterGray-dark text-sm"
         >
             <button class="underline" @click="$emit('changeAuth')">
                 Already Have An Account ? login
