@@ -23,8 +23,10 @@ const isEmailNotExist = ref(false);
 const passwordIsIncorrect = ref(false);
 const {signIn} = useAuth();
 function signWithGithub() {
+
     signIn("github", {callbackUrl: "/"});
 }
+
 async function loginWithCred() {
     isEmailNotExist.value = false;
     passwordIsIncorrect.value = false;

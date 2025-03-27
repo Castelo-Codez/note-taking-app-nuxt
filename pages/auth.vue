@@ -8,13 +8,10 @@ useHead({
 });
 const changeAuth = ref(false);
 const {signIn} = useAuth();
-
-
 </script>
 <template>
-    <main
-        aria-label="authentication page"
-        class="min-h-screen flex justify-center px-[10px] items-center bg-lightGray dark:bg-lightGray-dark"
+    <div
+        class="min-h-screen flex justify-center items-center bg-tagsBg dark:bg-tagsBg-dark"
     >
         <section
             class="bg-barckground rounded-md dark:bg-barckground-dark w-[95%] sm:w-[70%] max-w-[500px] py-14 px-8 flex flex-col gap-y-4"
@@ -25,5 +22,5 @@ const {signIn} = useAuth();
             />
             <Login @change-auth="() => (changeAuth = !changeAuth)" v-else />
         </section>
-    </main>
+    </div>
 </template>

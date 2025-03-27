@@ -38,9 +38,9 @@ export default NuxtAuthHandler({
                                 ...{email, password},
                             };
                         }
-                        throw new Error("password is incorrect");
+                        throw createError("password is incorrect");
                     }
-                    throw new Error("email doesn't exists");
+                    throw createError("email doesn't exist");
                 });
             },
         }),
