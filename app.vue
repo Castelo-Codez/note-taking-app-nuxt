@@ -17,9 +17,7 @@ useHead({
 
 <template>
     <NuxtLoadingIndicator :throttle="0" :height="2" />
-    <main
-        class="min-h-screen    bg-barckground dark:bg-barckground-dark"
-    >
+    <NuxtLayout>
         <NuxtPage />
-    </main>
+    </NuxtLayout>
 </template>

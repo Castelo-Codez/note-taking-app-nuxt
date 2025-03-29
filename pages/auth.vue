@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 definePageMeta({
     auth: {unauthenticatedOnly: true, navigateAuthenticatedTo: "/"},
+    layout: false,
 });
 const title = inject("title");
 useHead({
     title: `Auth | ${title}`,
 });
 const changeAuth = ref(false);
-const {signIn} = useAuth();
 </script>
 <template>
     <div
