@@ -18,6 +18,13 @@ export default defineNuxtConfig({
         preference: "system",
         classSuffix: "",
     },
+    experimental: {
+        defaults: {
+            nuxtLink: {
+                activeClass: "active-route",
+            },
+        },
+    },
     runtimeConfig: {
         clientId: process.env.CLIENT_ID,
         clientSec: process.env.CLIENT_SEC,

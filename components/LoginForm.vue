@@ -226,11 +226,7 @@ if (route.query.error == "password is incorrect") {
             </span>
         </div>
         <SubmitButton text="login" @click="loginWithCred" />
-        <div
-            class="py-3 mt-[-1rem] flex items-center text-sm text-text dark:text-text-dark before:flex-1 before:border-t before:border-grayBorder before:me-6 after:flex-1 after:border-t after:border-grayBorder after:ms-6 dark:before:border-grayBorder-dark dark:after:border-grayBorder-dark"
-        >
-            Or
-        </div>
+        <Divider :with-or-word="true" />
     </form>
     <SubmitButton
         text="login with"
@@ -262,6 +258,5 @@ if (route.query.error == "password is incorrect") {
                 ></path>
             </g>
         </svg>
-
     </SubmitButton>
 </template>
