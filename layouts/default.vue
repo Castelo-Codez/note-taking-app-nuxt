@@ -74,3 +74,12 @@
         </main>
     </div>
 </template>
+<style scoped>
+.active-route {
+    svg {
+        * {
+            @apply stroke-skyBlue;
+        }
+    }
+}
+</style>
