@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-const activeLink = ref(0);
+import useActiveLink from "~/composables/activeLink";
+import useCurrentRoute from "~/composables/currentRoute";
+
+const activeLink = useActiveLink();
+let currentRoute = useCurrentRoute();
 </script>
 
 <template>
@@ -14,7 +18,12 @@ const activeLink = ref(0);
                 class="text-text mt-10 text-sm capitalize dark:text-text-dark flex flex-col gap-y-4"
             >
                 <NuxtLink
-                    @click="activeLink = 1"
+                    @click="
+                        () => {
+                            activeLink = 1;
+                            currentRoute = 'All Notes';
+                        }
+                    "
                     class="flex items-center relative gap-x-2 group p-2 rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
                     :class="{
                         ' bg-lightGray dark:bg-lightGray-dark':
@@ -83,7 +92,12 @@ const activeLink = ref(0);
                     </div>
                 </NuxtLink>
                 <NuxtLink
-                    @click="activeLink = 2"
+                    @click="
+                        () => {
+                            activeLink = 2;
+                            currentRoute = 'Archived Notes';
+                        }
+                    "
                     class="flex items-center relative gap-x-2 group p-2 rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
                     to="archived-notes"
                     :class="{
@@ -148,7 +162,7 @@ const activeLink = ref(0);
         <main
             class="min-h-screen bg-barckground flex-1 dark:bg-barckground-dark"
         >
-            <header></header>
+            <Header />
             <slot />
         </main>
     </div>
