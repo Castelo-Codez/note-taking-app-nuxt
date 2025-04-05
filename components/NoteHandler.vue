@@ -1,0 +1,190 @@
+<script setup lang="ts">
+import {useForm} from "vee-validate";
+import {toTypedSchema} from "@vee-validate/zod";
+import {z} from "zod";
+const title = defineModel("title", {
+    default: "",
+});
+const tag = defineModel("tag", {
+    default: "",
+});
+const body = defineModel("body", {
+    default: "",
+});
+const archived = defineModel("archived", {
+    default: false,
+});
+const lastUpdated = defineModel("lastUpdated", {
+    default: "",
+});
+
+const nonemptyMsg = "cann't be empty";
+const minErrorMsg = "At Least 2 characters";
+const schema = toTypedSchema(
+    z.object({
+        title: z.string().nonempty(nonemptyMsg).min(2, minErrorMsg),
+        tag: z.string().nonempty(nonemptyMsg).min(2, minErrorMsg),
+        body: z.string().nonempty(nonemptyMsg),
+    })
+);
+const {defineField, errors, handleSubmit} = useForm({
+    validationSchema: schema,
+});
+const [$title, titleAttrs] = defineField("title");
+const [$tag, tagAttrs] = defineField("tag");
+const [$body, bodyAttrs] = defineField("body");
+
+watch(title, (newVal) => {
+    $title.value = newVal;
+});
+watch(tag, (newVal) => {
+    $tag.value = newVal;
+});
+watch(body, (newVal) => {
+    $body.value = newVal;
+});
+</script>
+<template>
+    <section class="grid grid-cols-1 xl:grid-cols-[3fr_1fr]">
+        <section
+            class="py-6 px-3 xl:border-r xl:border-r-border xl:dark:border-r-border-dark"
+        >
+            <form class="w-[90%] mx-auto">
+                <div>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        v-model="title"
+                        v-bind="titleAttrs"
+                        placeholder="Enter a title..."
+                        class="block text-[1.3rem] placeholder:text-text dark:placeholder:text-text-dark font-[800] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                    />
+                    <MainErrorMsg
+                        :error-msg="errors.title as string"
+                        :show="errors.title as string"
+                    />
+                </div>
+                <div
+                    class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start"
+                >
+                    <div class="flex items-center gap-x-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            fill="none"
+                            color="#FFF"
+                        >
+                            <path
+                                class="stroke-text dark:stroke-text-dark"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M3.016 5.966c.003-1.411 1.07-2.677 2.456-2.916.284-.05 3.616-.042 4.995-.041 1.364 0 2.527.491 3.49 1.452 2.045 2.042 4.088 4.085 6.128 6.13 1.208 1.21 1.224 3.066.022 4.28a805.496 805.496 0 0 1-5.229 5.228c-1.212 1.201-3.069 1.186-4.279-.022-2.064-2.058-4.127-4.115-6.182-6.182-.795-.8-1.264-1.766-1.368-2.895-.084-.903-.035-4.26-.033-5.034Z"
+                                clip-rule="evenodd"
+                            ></path>
+                            <path
+                                class="stroke-text dark:stroke-text-dark"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M9.907 8.315a1.607 1.607 0 0 1-1.61 1.583c-.872-.002-1.599-.73-1.594-1.596a1.604 1.604 0 0 1 1.633-1.607c.864.003 1.575.736 1.571 1.62Z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                        <span
+                            class="text-sm text-text dark:text-text-dark capitalize"
+                            >tags</span
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            id="tag"
+                            name="tag"
+                            v-model="tag"
+                            v-bind="tagAttrs"
+                            placeholder="Add tags separated by commas (e.g. Work, Planning)"
+                            class="block text-sm w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                        />
+                        <MainErrorMsg
+                            :error-msg="errors.tag as string"
+                            :show="errors.tag as string"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start pb-5 border-b border-b-border dark:border-b-border-dark"
+                >
+                    <div class="flex items-center gap-x-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            color="#FFF"
+                        >
+                            <path
+                                class="fill-text dark:fill-text-dark"
+                                fill-rule="evenodd"
+                                d="M12.25 3.75a8.25 8.25 0 1 0 0 16.5 8.25 8.25 0 0 0 0-16.5ZM2.5 12a9.75 9.75 0 0 1 9.75-9.75A9.75 9.75 0 0 1 22 12c0 5.384-4.364 9.75-9.75 9.75-5.385 0-9.75-4.366-9.75-9.75Z"
+                                clip-rule="evenodd"
+                            ></path>
+                            <path
+                                class="fill-text dark:fill-text-dark"
+                                fill-rule="evenodd"
+                                d="M11.922 7.827a.75.75 0 0 1 .75.75v3.672l2.81 1.68a.75.75 0 1 1-.77 1.287l-3.174-1.897a.75.75 0 0 1-.366-.644V8.577a.75.75 0 0 1 .75-.75Z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                        <span
+                            class="text-sm text-text dark:text-text-dark capitalize"
+                            >last edited</span
+                        >
+                    </div>
+                    <input
+                        type="text"
+                        disabled
+                        :placeholder="
+                            lastUpdated ? lastUpdated : 'not saved yet!'
+                        "
+                        class="bg-transparent text-sm"
+                    />
+                </div>
+                <div class="mt-5">
+                    <textarea
+                        name="body"
+                        id="body"
+                        v-bind="bodyAttrs"
+                        v-model="body"
+                        placeholder="start typing your note here..."
+                        class="resize-y bg-transparent block w-full min-h-[500px] border border-border dark:border-border-dark focus-within:outline-none rounded-md p-2 text-text dark:text-text-dark text-sm"
+                    >
+                    </textarea>
+                    <MainErrorMsg
+                        :error-msg="errors.body as string"
+                        :show="errors.body as string"
+                    />
+                </div>
+                <div
+                    class="mt-3 py-4 flex gap-x-3 border-t border-t-border dark:border-t-border-dark"
+                >
+                    <button
+                        class="text-text-dark bg-skyBlue p-2 px-4 rounded-md text-[0.8rem]"
+                    >
+                        Save Note
+                    </button>
+                    <button
+                        class="text-lighterGray dark:text-lighterGray-dark bg-darkerGray dark:bg-darkerGray-dark text-[0.8rem] rounded-md p-2 px-4"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </section>
+        <section
+            class="py-6 px-3 border-t border-t-border dark:border-t-border-dark xl:border-t-0"
+        ></section>
+    </section>
+</template>

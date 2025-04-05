@@ -57,59 +57,22 @@ if (route.query.error == "password is incorrect") {
                 v-model="email"
                 v-bind="emailAttr"
                 @input="() => (isEmailNotExist = false)"
-                @focus="() => (isEmailNotExist = false)"
+                @focusin="() => (isEmailNotExist = false)"
                 autocomplete="off"
                 type="email"
                 id="email"
                 name="email"
                 class="block p-1 px-3 w-full text-text dark:text-text-dark rounded-md bg-barckground dark:bg-barckground-dark border border-1 border-grayBorder dark:border-grayBorder-dark"
             />
-            <span
-                aria-label="email errors"
-                id="emailErrors"
-                class="flex gap-x-1 items-center mt-2 text-sm text-lightRed-dark"
-                v-if="errors.email"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        class="stroke-lightRed"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
-                    />
-                </svg>
-                <span> {{ errors.email }}</span>
-            </span>
-            <span
-                aria-label="email errors"
-                id="emailErrors"
-                class="flex gap-x-1 items-center mt-2 text-sm text-lightRed-dark"
-                v-if="isEmailNotExist"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        class="stroke-lightRed"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
-                    />
-                </svg>
-                <span> {{ route.query.error }}</span>
-            </span>
+           
+            <MainErrorMsg
+                :error-msg="errors.email as string"
+                :show="errors.email as string"
+            />
+            <MainErrorMsg 
+                :show="isEmailNotExist as boolean"
+                :error-msg="route.query.error as string"
+            />
         </div>
         <div aria-label="password Input" class="relative mb-5">
             <label
@@ -122,7 +85,7 @@ if (route.query.error == "password is incorrect") {
                 v-model="password"
                 v-bind="passwordAttr"
                 @input="() => (passwordIsIncorrect = false)"
-                @focus="() => (passwordIsIncorrect = false)"
+                @focusin="() => (passwordIsIncorrect = false)"
                 autocomplete="off"
                 name="password"
                 :type="showPassword ? 'text' : 'password'"
@@ -201,29 +164,10 @@ if (route.query.error == "password is incorrect") {
                 </svg>
                 <span>{{ errors.password }}</span>
             </span>
-            <span
-                aria-label="password errors"
-                id="passwordErrors"
-                class="flex items-center gap-x-1 text-sm absolute -bottom-7 text-lightRed-dark"
-                v-if="passwordIsIncorrect"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        class="stroke-lightRed"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12.006 15.693v-4.3M12 8.355v-.063"
-                    />
-                </svg>
-                <span>{{ route.query.error }}</span>
-            </span>
+            <MainErrorMsg
+                :error-msg="route.query.error as string"
+                :show="passwordIsIncorrect"
+            />
         </div>
         <SubmitButton text="login" @click="loginWithCred" />
         <Divider :with-or-word="true" />

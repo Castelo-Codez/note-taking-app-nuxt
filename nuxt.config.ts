@@ -34,6 +34,7 @@ export default defineNuxtConfig({
         isEnabled: true,
         disableServerSideAuth: false,
         globalAppMiddleware: true,
+
         provider: {
             type: "authjs",
             trustHost: false,

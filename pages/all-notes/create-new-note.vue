@@ -7,5 +7,6 @@ useHead({
 <template>
     <MainSection>
         <MainNav />
+        <NoteHandler />
     </MainSection>
 </template>

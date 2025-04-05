@@ -1,8 +1,5 @@
-<script lang="ts" setup>
-const {signOut} = useAuth();
+<script setup lang="ts">
+definePageMeta({
+    middleware: ["redirectfromhome"],
+});
 </script>
-<template>
-    <div>
-        <button @click="signOut()">signout</button>
-    </div>
-</template>
