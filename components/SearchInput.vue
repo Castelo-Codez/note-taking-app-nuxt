@@ -1,18 +1,15 @@
 <script lang="ts" setup>
-import useActiveLink from "~/composables/activeLink";
 import useSearch from "~/composables/searchKeyword";
+import {changeActiveRoute} from "~/helpers/changeActiveLink";
 
 const searchKeyword = useSearch();
 
-const activeLink = useActiveLink();
-
 watch(searchKeyword, (newVal) => {
-    activeLink.value = 0;
+    changeActiveRoute(0);
     if (newVal == "") {
         searchKeyword.value = "";
-        navigateTo(`/search/`);
     }
-    navigateTo(`/search/${newVal}`);
+    navigateTo(`/search`);
 });
 </script>
 

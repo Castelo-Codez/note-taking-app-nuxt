@@ -1,3 +1,0 @@
-<template>
-    all notes
-</template>

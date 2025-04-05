@@ -1,13 +1,26 @@
 <script setup lang="ts">
 import useCurrentRoute from "~/composables/currentRoute";
-let currentRoute = useCurrentRoute();
+import useSearch from "~/composables/searchKeyword";
+import {changeActiveRoute} from "~/helpers/changeActiveLink";
+import changeCurrentRoute from "~/helpers/changeCurrentRoute";
+const currentRoute = useCurrentRoute();
+const searchKeyword = useSearch();
+watch(searchKeyword, (newVal) => {
+    if (newVal.length > 15) {
+        changeCurrentRoute(`Search Results of : ${newVal.slice(0, 16)}...`);
+        return;
+    }
+    changeCurrentRoute(`Search Results of : ${newVal}`);
+});
 </script>
 <template>
     <header>
         <div
             class="py-5 px-7 text-text dark:text-text-dark text-[1rem] border-b border-b-border dark:border-border-dark flex justify-between items-center"
         >
-            <span class="text-[1.5rem] font-[800] capitalize">{{ currentRoute }}</span>
+            <span class="text-[1.5rem] font-[800] capitalize">{{
+                currentRoute
+            }}</span>
             <div class="flex items-center gap-x-5">
                 <SearchInput />
                 <NuxtLink
@@ -15,7 +28,8 @@ let currentRoute = useCurrentRoute();
                     to="settings"
                     @click="
                         () => {
-                            currentRoute = 'settings';
+                            changeCurrentRoute('Settings');
+                            changeActiveRoute(0);
                         }
                     "
                 >

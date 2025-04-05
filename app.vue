@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const title = "note taking app";
+const title = "Note Taking App";
 provide("title", title);
 
 useHead({

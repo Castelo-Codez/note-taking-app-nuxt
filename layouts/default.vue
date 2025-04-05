@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import useActiveLink from "~/composables/activeLink";
-import useCurrentRoute from "~/composables/currentRoute";
-
+import {changeActiveRoute} from "~/helpers/changeActiveLink";
+import changeCurrentRoute from "~/helpers/changeCurrentRoute";
+const router = useRouter();
 const activeLink = useActiveLink();
-let currentRoute = useCurrentRoute();
 </script>
 
 <template>
@@ -20,16 +20,16 @@ let currentRoute = useCurrentRoute();
                 <NuxtLink
                     @click="
                         () => {
-                            activeLink = 1;
-                            currentRoute = 'All Notes';
+                            changeActiveRoute(1);
+                            changeCurrentRoute('All Notes');
+                            router.replace('/all-notes');
                         }
                     "
-                    class="flex items-center relative gap-x-2 group p-2 rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
+                    class="flex items-center relative gap-x-2 group p-2 text-sm rounded-lg cursor-pointer hover:bg-lightGray dark:hover:bg-lightGray-dark"
                     :class="{
                         ' bg-lightGray dark:bg-lightGray-dark':
                             activeLink === 1,
                     }"
-                    to="all-notes"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -94,12 +94,12 @@ let currentRoute = useCurrentRoute();
                 <NuxtLink
                     @click="
                         () => {
-                            activeLink = 2;
-                            currentRoute = 'Archived Notes';
+                            changeActiveRoute(2);
+                            changeCurrentRoute('Archived Notes');
+                            router.replace('/archived-notes');
                         }
                     "
-                    class="flex items-center relative gap-x-2 group p-2 rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
-                    to="archived-notes"
+                    class="flex items-center relative gap-x-2 group p-2 text-sm cursor-pointer rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
                     :class="{
                         ' bg-lightGray dark:bg-lightGray-dark':
                             activeLink === 2,
