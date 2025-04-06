@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import uniqid from "uniqid";
 import {useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/zod";
 import {z} from "zod";
+import useNotes from "~/composables/Notes";
+const notes = useNotes();
+const router = useRouter();
 const title = defineModel("title", {
     default: "",
 });
+
 const tag = defineModel("tag", {
     default: "",
 });
@@ -14,9 +19,12 @@ const body = defineModel("body", {
 const archived = defineModel("archived", {
     default: false,
 });
-const lastUpdated = defineModel("lastUpdated", {
-    default: "",
-});
+
+const {id = ``, lastUpdated = ""} = defineProps<{
+    id?: string;
+    lastUpdated?: string;
+    isnew: boolean;
+}>();
 
 const nonemptyMsg = "cann't be empty";
 const minErrorMsg = "At Least 2 characters";
@@ -27,12 +35,40 @@ const schema = toTypedSchema(
         body: z.string().nonempty(nonemptyMsg),
     })
 );
+console.log(id);
 const {defineField, errors, handleSubmit} = useForm({
     validationSchema: schema,
 });
+const onSubmit = handleSubmit((values) => {
+    const checkIfNoteExists: Note = notes.value.find((el: Note) => el.id == id);
+    if (checkIfNoteExists) {
+        const oldNoteIndex = notes.value.indexOf(checkIfNoteExists as Note);
+        notes.value.splice(oldNoteIndex, 1);
+        notes.value.splice(oldNoteIndex, 0, {
+            ...values,
+            id,
+            archived: archived.value,
+            lastUpdated: lastUpdated,
+        });
+        router.replace(`/all-notes/${id}`);
+    } else {
+        let uniqId = `${uniqid()}`;
+        notes.value.push({
+            ...values,
+            id: uniqId,
+            archived: archived.value,
+            lastUpdated: `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`,
+        });
+        router.replace(`/all-notes/${uniqId}`);
+    }
+});
+
 const [$title, titleAttrs] = defineField("title");
+$title.value = title.value;
 const [$tag, tagAttrs] = defineField("tag");
+$tag.value = tag.value;
 const [$body, bodyAttrs] = defineField("body");
+$body.value = body.value;
 
 watch(title, (newVal) => {
     $title.value = newVal;
@@ -49,7 +85,7 @@ watch(body, (newVal) => {
         <section
             class="py-6 px-3 xl:border-r xl:border-r-border xl:dark:border-r-border-dark"
         >
-            <form class="w-[90%] mx-auto">
+            <form class="w-[90%] mx-auto" @submit.prevent="onSubmit">
                 <div>
                     <input
                         type="text"
@@ -115,6 +151,43 @@ watch(body, (newVal) => {
                     </div>
                 </div>
                 <div
+                    v-if="archived"
+                    class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start"
+                >
+                    <div class="flex items-center gap-x-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            color="#FFF"
+                        >
+                            <path
+                                fill="#FFF"
+                                fill-rule="evenodd"
+                                d="M5.658 6.348c.27-.27.708-.27.979 0l.876.876a.692.692 0 0 1-.98.979l-.875-.876a.692.692 0 0 1 0-.98Zm1.855 9.446c.27.27.27.709 0 .98l-1.589 1.589a.692.692 0 1 1-.98-.979l1.59-1.59c.27-.27.708-.27.979 0Zm7.592 0c.27-.27.709-.27.98 0l1.588 1.59a.692.692 0 1 1-.98.979l-1.588-1.59a.692.692 0 0 1 0-.979ZM11.308 4.583c.382 0 .692.31.692.693v.662a.692.692 0 1 1-1.384 0v-.662c0-.383.31-.692.692-.692ZM2.824 12c0-.382.31-.692.692-.692h1.731a.692.692 0 0 1 0 1.384H3.516A.692.692 0 0 1 2.824 12Zm13.852 0c0-.382.31-.692.693-.692h2.247a.692.692 0 0 1 0 1.384h-2.247a.692.692 0 0 1-.693-.692Zm-5.368 5.368c.382 0 .692.31.692.693v2.247a.692.692 0 1 1-1.384 0V18.06c0-.383.31-.693.692-.693Z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                        <span
+                            class="text-sm text-text dark:text-text-dark capitalize"
+                            >status</span
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            disabled
+                            placeholder="archived"
+                            class="block capitalize text-sm w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                        />
+                        <MainErrorMsg
+                            :error-msg="errors.tag as string"
+                            :show="errors.tag as string"
+                        />
+                    </div>
+                </div>
+                <div
                     class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start pb-5 border-b border-b-border dark:border-b-border-dark"
                 >
                     <div class="flex items-center gap-x-2">
@@ -149,7 +222,7 @@ watch(body, (newVal) => {
                         :placeholder="
                             lastUpdated ? lastUpdated : 'not saved yet!'
                         "
-                        class="bg-transparent text-sm"
+                        class="bg-transparent text-sm capitalize"
                     />
                 </div>
                 <div class="mt-5">
@@ -171,11 +244,13 @@ watch(body, (newVal) => {
                     class="mt-3 py-4 flex gap-x-3 border-t border-t-border dark:border-t-border-dark"
                 >
                     <button
+                        type="submit"
                         class="text-text-dark bg-skyBlue p-2 px-4 rounded-md text-[0.8rem]"
                     >
                         Save Note
                     </button>
                     <button
+                        type="button"
                         class="text-lighterGray dark:text-lighterGray-dark bg-darkerGray dark:bg-darkerGray-dark text-[0.8rem] rounded-md p-2 px-4"
                     >
                         Cancel
@@ -185,6 +260,8 @@ watch(body, (newVal) => {
         </section>
         <section
             class="py-6 px-3 border-t border-t-border dark:border-t-border-dark xl:border-t-0"
-        ></section>
+        >
+            <ArchiveOrRestore :archived="archived" v-if="!isnew" :id="id" />
+        </section>
     </section>
 </template>
