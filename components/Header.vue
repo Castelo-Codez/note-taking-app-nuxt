@@ -5,6 +5,7 @@ import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const currentRoute = useCurrentRoute();
 const searchKeyword = useSearch();
+const router = useRouter();
 watch(searchKeyword, (newVal) => {
     if (newVal.length > 15) {
         changeCurrentRoute(`Search Results of : ${newVal.slice(0, 16)}...`);
@@ -25,11 +26,11 @@ watch(searchKeyword, (newVal) => {
                 <SearchInput />
                 <NuxtLink
                     class="cursor-pointer"
-                    to="settings"
                     @click="
                         () => {
                             changeCurrentRoute('Settings');
                             changeActiveRoute(0);
+                            router.replace('/settings');
                         }
                     "
                 >

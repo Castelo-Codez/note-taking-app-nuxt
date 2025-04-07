@@ -1,20 +1,19 @@
 <script lang="ts" setup>
+import {changeActiveRoute} from "~/helpers/changeActiveLink";
 const props = defineProps<{
     Notes: Note[];
 }>();
-import {changeActiveRoute} from "~/helpers/changeActiveLink";
+const currentActiveNote = ref(``);
 const router = useRouter();
 function goToCreateNewNote() {
     changeActiveRoute(1);
+    currentActiveNote.value = ``;
     router.replace("/all-notes/create-new-note");
 }
-function goToTargetNote(id: any) {
-    const targetNote = props.Notes.find((el: Note) => el.id == id);
-    if (targetNote?.archived) {
-        router.replace(`/archived-notes/${id}`);
-    } else {
-        router.replace(`/all-notes/${id}`);
-    }
+const fullPath = router.currentRoute.value.fullPath.match(/\/(archived-notes|all-notes|\w+)/gi)?.join("");
+function goToTargetNote(id: string) {
+    currentActiveNote.value = id;
+    router.replace(`${fullPath}/${id}`);
 }
 </script>
 <template>
@@ -32,6 +31,9 @@ function goToTargetNote(id: any) {
                 <li v-for="note in props.Notes" :key="note.id">
                     <NuxtLink
                         @click="goToTargetNote(note.id)"
+                        :class="[
+                            currentActiveNote == note.id ? ' text-red-500' : '',
+                        ]"
                         class="cursor-pointer"
                     >
                         {{ note.title }}

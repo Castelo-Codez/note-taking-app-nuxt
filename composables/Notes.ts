@@ -7,17 +7,7 @@ interface Note {
     archived: boolean;
 }
 
-const useNotes = () =>
-    useState<Note[]>("Notes", () => [
-        {
-            id: "1321231",
-            lastUpdated: "22-3-2025",
-            title: "castelo",
-            tag: "castelo",
-            body: "castelo",
-            archived: false,
-        },
-    ]);
+const useNotes = () => useState<Note[]>("Notes", () => []);
 
 export type {Note};
 export default useNotes;

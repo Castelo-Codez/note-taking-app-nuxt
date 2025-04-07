@@ -31,9 +31,7 @@ function archiveNote() {
         }
         return el;
     });
-    router.replace(`/archived-notes/${props.id}`);
-    changeActiveRoute(2);
-    changeCurrentRoute("archived notes");
+    router.replace("/all-notes");
 }
 function restoreNote() {
     notes.value = notes.value.map((el: Note) => {
@@ -42,9 +40,7 @@ function restoreNote() {
         }
         return el;
     });
-    router.replace(`/all-notes/${props.id}`);
-    changeActiveRoute(1);
-    changeCurrentRoute("all notes");
+    router.replace("/archived-notes");
 }
 </script>
 
@@ -84,7 +80,7 @@ function restoreNote() {
         </button>
         <button
             class="py-2 pl-4 items-center flex gap-x-2 rounded-md border border-darkGray dark:border-darkGray-dark"
-            title="archive note"
+            title="restore note"
             @click="restoreNote"
             v-else
         >
@@ -114,7 +110,7 @@ function restoreNote() {
         </button>
         <button
             class="py-2 pl-4 items-center flex gap-x-2 rounded-md border border-darkGray dark:border-darkGray-dark"
-            title="archive note"
+            title="delete note"
             @click="removeNote"
         >
             <svg

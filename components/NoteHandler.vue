@@ -9,7 +9,6 @@ const router = useRouter();
 const title = defineModel("title", {
     default: "",
 });
-
 const tag = defineModel("tag", {
     default: "",
 });
@@ -25,7 +24,6 @@ const {id = ``, lastUpdated = ""} = defineProps<{
     lastUpdated?: string;
     isnew: boolean;
 }>();
-
 const nonemptyMsg = "cann't be empty";
 const minErrorMsg = "At Least 2 characters";
 const schema = toTypedSchema(
@@ -35,11 +33,11 @@ const schema = toTypedSchema(
         body: z.string().nonempty(nonemptyMsg),
     })
 );
-console.log(id);
 const {defineField, errors, handleSubmit} = useForm({
     validationSchema: schema,
 });
 const onSubmit = handleSubmit((values) => {
+    //@ts-expect-error
     const checkIfNoteExists: Note = notes.value.find((el: Note) => el.id == id);
     if (checkIfNoteExists) {
         const oldNoteIndex = notes.value.indexOf(checkIfNoteExists as Note);
@@ -261,7 +259,11 @@ watch(body, (newVal) => {
         <section
             class="py-6 px-3 border-t border-t-border dark:border-t-border-dark xl:border-t-0"
         >
-            <ArchiveOrRestore :archived="archived" v-if="!isnew" :id="id" />
+            <ArchiveOrRestoreOrDelete
+                :archived="archived"
+                :id="id"
+                v-if="!isnew"
+            />
         </section>
     </section>
 </template>

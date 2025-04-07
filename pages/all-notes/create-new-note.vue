@@ -8,8 +8,5 @@ useHead({
 const notes = useNotes();
 </script>
 <template>
-    <MainSection>
-        <MainNav :-notes="notes.filter((el: Note) => !el.archived)" />
-        <NoteHandler :isnew="true" />
-    </MainSection>
+    <NoteHandler :isnew="true" />
 </template>
