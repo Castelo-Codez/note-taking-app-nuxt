@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import useNotes from "~/composables/Notes";
-
 const notes = useNotes();
 </script>
 <template>

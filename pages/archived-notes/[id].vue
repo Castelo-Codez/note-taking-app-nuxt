@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 const title = inject("title");
-
 const archived = archivedNotes();
 const targetNote = archived.value.find((el: Note) => el.id === route.params.id);
 useHead({

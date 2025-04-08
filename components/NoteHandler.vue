@@ -57,7 +57,7 @@ const onSubmit = handleSubmit((values) => {
             archived: archived.value,
             lastUpdated: `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`,
         });
-        router.replace(`/all-notes/${uniqId}`);
+        router.replace(`/all-notes`);
     }
 });
 
