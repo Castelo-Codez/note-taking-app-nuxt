@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import useActiveLink from "~/composables/activeLink";
+import {useActiveLink} from "~/composables/activeLinks";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const router = useRouter();
 const activeLink = useActiveLink();
+const notes = useNotes();
 </script>
 
 <template>
@@ -158,6 +159,14 @@ const activeLink = useActiveLink();
                 </NuxtLink>
             </div>
             <Divider :with-or-word="false" />
+            <ul role="list" class="mt-2">
+                <h3 class="capitalize mb-3 text-darkGray-dark text-[0.8rem]">
+                    tags
+                </h3>
+                <li v-for="tag in notes" class="text-white">
+                    {{ tag.tag }}
+                </li>
+            </ul>
         </aside>
         <main
             class="min-h-screen bg-barckground flex-1 dark:bg-barckground-dark"

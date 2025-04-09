@@ -7,7 +7,6 @@ interface Note {
     archived: boolean;
 }
 
-const useNotes = () => useState<Note[]>("Notes", () => []);
-
+export const useNotes = () => useState<Note[]>("Notes", () => []);
 export type {Note};
-export default useNotes;
+

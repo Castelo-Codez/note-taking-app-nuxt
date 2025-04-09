@@ -1,4 +1,3 @@
+export const useSearch = () => useState<string>("searchKerword", () => "");
 
-const useSearch = () => useState<string>("searchKerword", () => "");
 
-export default useSearch;

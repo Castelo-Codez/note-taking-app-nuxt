@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import useNotes from "~/composables/Notes";
+
+import {useNotes} from "~/composables/notes";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const router = useRouter();

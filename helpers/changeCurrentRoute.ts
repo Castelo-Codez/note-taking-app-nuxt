@@ -1,4 +1,4 @@
-import useCurrentRoute from "~/composables/currentRoute";
+import {useCurrentRoute} from "~/composables/currentRoute";
 
 export default (newValue: string) => {
     const currentRoute = useCurrentRoute();

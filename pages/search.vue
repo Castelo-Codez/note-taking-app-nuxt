@@ -1,5 +1,5 @@
 <script setup lant="ts">
-import useSearch from "~/composables/searchKeyword";
+import {useSearch} from "~/composables/searchKeyword";
 const searchKeyword = useSearch();
 </script>
 <template>

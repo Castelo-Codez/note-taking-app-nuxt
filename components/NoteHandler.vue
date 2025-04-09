@@ -3,7 +3,7 @@ import uniqid from "uniqid";
 import {useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/zod";
 import {z} from "zod";
-import useNotes from "~/composables/Notes";
+import {useNotes} from "~/composables/notes";
 const notes = useNotes();
 const router = useRouter();
 const title = defineModel("title", {
@@ -51,12 +51,15 @@ const onSubmit = handleSubmit((values) => {
         router.replace(`/all-notes/${id}`);
     } else {
         let uniqId = `${uniqid()}`;
-        notes.value.push({
-            ...values,
-            id: uniqId,
-            archived: archived.value,
-            lastUpdated: `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`,
-        });
+        notes.value = [
+            ...notes.value,
+            {
+                ...values,
+                id: uniqId,
+                archived: archived.value,
+                lastUpdated: `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`,
+            },
+        ];
         router.replace(`/all-notes`);
     }
 });
@@ -248,6 +251,7 @@ watch(body, (newVal) => {
                         Save Note
                     </button>
                     <button
+                        @click="router.replace('/all-notes')"
                         type="button"
                         class="text-lighterGray dark:text-lighterGray-dark bg-darkerGray dark:bg-darkerGray-dark text-[0.8rem] rounded-md p-2 px-4"
                     >

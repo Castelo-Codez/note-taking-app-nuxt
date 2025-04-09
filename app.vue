@@ -13,6 +13,12 @@ useHead({
         },
     ],
 });
+
+const notes = useNotes();
+const archiveNotes = useArchivedNotes();
+watch(notes, (newVal) => {
+    archiveNotes.value = newVal.filter((el) => el.archived);
+});
 </script>
 
 <template>

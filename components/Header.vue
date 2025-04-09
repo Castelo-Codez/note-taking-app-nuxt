@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useCurrentRoute from "~/composables/currentRoute";
-import useSearch from "~/composables/searchKeyword";
+import {useCurrentRoute} from "~/composables/currentRoute";
+import {useSearch} from "~/composables/searchKeyword";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const currentRoute = useCurrentRoute();

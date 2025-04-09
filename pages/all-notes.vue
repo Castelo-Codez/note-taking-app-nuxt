@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import useNotes from "~/composables/Notes";
+import {useNotes} from "~/composables/notes";
+
 const notes = useNotes();
 </script>
 <template>

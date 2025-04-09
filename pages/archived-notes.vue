@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import useNotes from "~/composables/Notes";
+import {useArchivedNotes} from "~/composables/archivedNotes";
 
-const notes = useNotes();
+const archivedNotes = useArchivedNotes();
 </script>
 <template>
-    <NuxtLayout
-        name="section-layout"
-        :notes="notes.filter((el: Note) => el.archived)"
-    >
+    <NuxtLayout name="section-layout" :notes="archivedNotes">
         <NuxtPage />
     </NuxtLayout>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import useSearch from "~/composables/searchKeyword";
+import {useSearch} from "~/composables/searchKeyword";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 
 const searchKeyword = useSearch();

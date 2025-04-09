@@ -10,7 +10,9 @@ function goToCreateNewNote() {
     currentActiveNote.value = ``;
     router.replace("/all-notes/create-new-note");
 }
-const fullPath = router.currentRoute.value.fullPath.match(/\/(archived-notes|all-notes|\w+)/gi)?.join("");
+const fullPath = router.currentRoute.value.fullPath
+    .match(/\/(archived-notes|all-notes|\w+)/gi)
+    ?.join("");
 function goToTargetNote(id: string) {
     currentActiveNote.value = id;
     router.replace(`${fullPath}/${id}`);
