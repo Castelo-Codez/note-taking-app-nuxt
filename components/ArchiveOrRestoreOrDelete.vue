@@ -14,16 +14,8 @@ function removeNote() {
     if (noteToDelete) {
         notes.value.splice(notes.value.indexOf(noteToDelete), 1);
     }
-    if (noteToDelete?.archived) {
-        changeActiveRoute(2);
-        changeCurrentRoute("archived notes");
         router.replace(`${prevRoute?.join("")}`);
-    }
-    if (!noteToDelete?.archived) {
-        changeActiveRoute(1);
-        changeCurrentRoute("all notes");
-        router.replace(`${prevRoute?.join("")}`);
-    }
+    
 }
 function archiveNote() {
     notes.value = notes.value.map((el: Note) => {
