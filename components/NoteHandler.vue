@@ -4,8 +4,9 @@ import {useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/zod";
 import {z} from "zod";
 import {useNotes} from "~/composables/notes";
-const notes = useNotes();
 const router = useRouter();
+const notes = useNotes();
+const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
 const title = defineModel("title", {
     default: "",
 });
@@ -36,6 +37,20 @@ const schema = toTypedSchema(
 const {defineField, errors, handleSubmit} = useForm({
     validationSchema: schema,
 });
+const arrayOfMonths = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+];
 const onSubmit = handleSubmit((values) => {
     //@ts-expect-error
     const checkIfNoteExists: Note = notes.value.find((el: Note) => el.id == id);
@@ -46,9 +61,10 @@ const onSubmit = handleSubmit((values) => {
             ...values,
             id,
             archived: archived.value,
-            lastUpdated: lastUpdated,
+            lastUpdated: `${new Date().getDate()} ${
+                arrayOfMonths[new Date().getMonth()]
+            } ${new Date().getFullYear()}`,
         });
-        router.replace(`/all-notes/${id}`);
     } else {
         let uniqId = `${uniqid()}`;
         notes.value = [
@@ -57,11 +73,13 @@ const onSubmit = handleSubmit((values) => {
                 ...values,
                 id: uniqId,
                 archived: archived.value,
-                lastUpdated: `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`,
+                lastUpdated: `${new Date().getDate()} ${
+                    arrayOfMonths[new Date().getMonth()]
+                } ${new Date().getFullYear()}`,
             },
         ];
-        router.replace(`/all-notes`);
     }
+    router.replace(`${prevRoute?.join("")}`);
 });
 
 const [$title, titleAttrs] = defineField("title");
@@ -251,8 +269,8 @@ watch(body, (newVal) => {
                         Save Note
                     </button>
                     <button
-                        @click="router.replace('/all-notes')"
                         type="button"
+                        @click="router.replace(`${prevRoute?.join('')}`)"
                         class="text-lighterGray dark:text-lighterGray-dark bg-darkerGray dark:bg-darkerGray-dark text-[0.8rem] rounded-md p-2 px-4"
                     >
                         Cancel

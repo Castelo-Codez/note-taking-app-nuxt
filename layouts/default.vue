@@ -5,6 +5,16 @@ import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const router = useRouter();
 const activeLink = useActiveLink();
 const notes = useNotes();
+const filterdFromDublicates = computed(() => {
+    const filterdArr: string[] = [];
+    notes.value.map((el) => {
+        if (!filterdArr.includes(el.tag)) {
+            filterdArr.push(el.tag);
+        }
+    });
+    return filterdArr;
+});
+const tagedNotes = useTagedNotes();
 </script>
 
 <template>
@@ -163,8 +173,82 @@ const notes = useNotes();
                 <h3 class="capitalize mb-3 text-darkGray-dark text-[0.8rem]">
                     tags
                 </h3>
-                <li v-for="tag in notes" class="text-white">
-                    {{ tag.tag }}
+                <li
+                    v-for="(tag, index) in filterdFromDublicates"
+                    class="mb-3 text-text text-sm dark:text-text-dark"
+                    :key="index"
+                >
+                    <NuxtLink
+                        @click="
+                            () => {
+                                changeActiveRoute(3 + index);
+                                changeCurrentRoute(`Taged Notes: ${tag}`);
+                                router.replace(`/tags`);
+                                tagedNotes = tag;
+                            }
+                        "
+                        class="flex items-center relative gap-x-2 group p-2 text-sm cursor-pointer rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
+                        :class="{
+                            ' bg-lightGray dark:bg-lightGray-dark':
+                                activeLink === 3 + index,
+                        }"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            color="#335CFF"
+                        >
+                            <path
+                                class="group-hover:stroke-skyBlue"
+                                :class="[
+                                    activeLink === 3 + index
+                                        ? ' stroke-skyBlue'
+                                        : 'stroke-text dark:stroke-text-dark',
+                                ]"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M3.016 5.966c.003-1.411 1.07-2.677 2.456-2.916.284-.05 3.616-.042 4.995-.041 1.364 0 2.527.491 3.49 1.452 2.045 2.042 4.088 4.085 6.128 6.13 1.208 1.21 1.224 3.066.022 4.28a805.496 805.496 0 0 1-5.229 5.228c-1.212 1.201-3.069 1.186-4.279-.022-2.064-2.058-4.127-4.115-6.182-6.182-.795-.8-1.264-1.766-1.368-2.895-.084-.903-.035-4.26-.033-5.034Z"
+                                clip-rule="evenodd"
+                            ></path>
+                            <path
+                                class="group-hover:stroke-skyBlue"
+                                :class="[
+                                    activeLink === 3 + index
+                                        ? ' stroke-skyBlue'
+                                        : 'stroke-text dark:stroke-text-dark',
+                                ]"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M9.907 8.315a1.607 1.607 0 0 1-1.61 1.583c-.872-.002-1.599-.73-1.594-1.596a1.604 1.604 0 0 1 1.633-1.607c.864.003 1.575.736 1.571 1.62Z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                        {{ tag }}
+                        <div
+                            class="absolute right-3"
+                            v-if="activeLink === 3 + index"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                class="ml-auto flex"
+                                color="#FFF"
+                            >
+                                <path
+                                    fill="#FFF"
+                                    fill-rule="evenodd"
+                                    d="M9.47 7.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L12.94 12 9.47 8.53a.75.75 0 0 1 0-1.06Z"
+                                    clip-rule="evenodd"
+                                ></path>
+                            </svg>
+                        </div>
+                    </NuxtLink>
                 </li>
             </ul>
         </aside>

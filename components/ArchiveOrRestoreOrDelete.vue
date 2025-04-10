@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-
 import {useNotes} from "~/composables/notes";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const router = useRouter();
+const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
 const notes = useNotes();
 const props = defineProps<{
     archived: boolean;
@@ -17,12 +17,12 @@ function removeNote() {
     if (noteToDelete?.archived) {
         changeActiveRoute(2);
         changeCurrentRoute("archived notes");
-        router.replace("/archived-notes");
+        router.replace(`${prevRoute?.join("")}`);
     }
     if (!noteToDelete?.archived) {
         changeActiveRoute(1);
         changeCurrentRoute("all notes");
-        router.replace("/all-notes");
+        router.replace(`${prevRoute?.join("")}`);
     }
 }
 function archiveNote() {
@@ -32,7 +32,7 @@ function archiveNote() {
         }
         return el;
     });
-    router.replace("/all-notes");
+    router.replace(`${prevRoute?.join("")}`);
 }
 function restoreNote() {
     notes.value = notes.value.map((el: Note) => {
@@ -41,7 +41,7 @@ function restoreNote() {
         }
         return el;
     });
-    router.replace("/archived-notes");
+    router.replace(`${prevRoute?.join("")}`);
 }
 </script>
 

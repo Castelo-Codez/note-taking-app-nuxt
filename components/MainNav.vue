@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
+import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const props = defineProps<{
     Notes: Note[];
 }>();
@@ -7,7 +8,7 @@ const currentActiveNote = ref(``);
 const router = useRouter();
 function goToCreateNewNote() {
     changeActiveRoute(1);
-    currentActiveNote.value = ``;
+    changeCurrentRoute("All Notes");
     router.replace("/all-notes/create-new-note");
 }
 const fullPath = router.currentRoute.value.fullPath

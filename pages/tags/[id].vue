@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {useNotes} from '~/composables/notes';
+import {useNotes} from "~/composables/notes";
 const route = useRoute();
 const title = inject("title");
-const notes = useNotes()
+const notes = useNotes();
 const targetNote = notes.value.find((el: Note) => el.id === route.params.id);
 useHead({
     title: `${targetNote ? targetNote.id : ""} | ${title}`,
@@ -10,7 +10,6 @@ useHead({
 </script>
 <template>
     <NoteHandler
-
         v-if="targetNote"
         :key="targetNote.id"
         :isnew="false"

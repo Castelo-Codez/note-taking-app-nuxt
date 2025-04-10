@@ -1,9 +1,25 @@
-<script setup lant="ts">
-import {useSearch} from "~/composables/searchKeyword";
+<script setup lang="ts">
 const searchKeyword = useSearch();
+const notes = useNotes();
+const filterdNotes = ref<Note[]>();
+watch(
+    searchKeyword,
+    (newVal: string) => {
+        filterdNotes.value = notes.value.filter((el: Note) => {
+            let allText = `${el.title} ${el.tag} ${el.body}`;
+            if (allText.includes(newVal) && newVal !== "") {
+                return el;
+            }
+        });
+        console.log(filterdNotes.value);
+    },
+    {
+        immediate: true,
+    }
+);
 </script>
 <template>
-    <section class="px-5 min-h-[calc(100%_-_88px)]">
-        {{ searchKeyword }}
-    </section>
+    <NuxtLayout name="section-layout" :notes="filterdNotes">
+        <NuxtPage />
+    </NuxtLayout>
 </template>
