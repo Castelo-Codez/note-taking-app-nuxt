@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import {useNotes} from "~/composables/notes";
 const notes = useNotes();
+const title = inject("title");
+useHead({
+    title: `All Notes | ${title}`,
+});
 </script>
 <template>
     <NuxtLayout

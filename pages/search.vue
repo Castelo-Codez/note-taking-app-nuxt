@@ -23,6 +23,10 @@ watch(
         immediate: true,
     }
 );
+const title = inject("title");
+useHead({
+    title: `Search | ${title}`,
+});
 </script>
 <template>
     <NuxtLayout name="section-layout" :notes="filterdNotes">

@@ -11,5 +11,5 @@ defineProps<{
     >
         Or
     </div>
-    <div v-else class="w-full mt-8 h-[1px] bg-border dark:bg-border-dark"></div>
+    <div v-else class="w-full mt-3 h-[1px] bg-border dark:bg-border-dark"></div>
 </template>

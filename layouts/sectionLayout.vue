@@ -2,10 +2,7 @@
 const props = defineProps<{
     notes: Note[];
 }>();
-const title = inject("title");
-useHead({
-    title: `All Notes | ${title}`,
-});
+
 
 </script>
 <template>

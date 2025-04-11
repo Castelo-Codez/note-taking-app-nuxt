@@ -15,6 +15,7 @@ const filterdFromDublicates = computed(() => {
     return filterdArr;
 });
 const tagedNotes = useTagedNotes();
+
 </script>
 
 <template>
@@ -28,7 +29,9 @@ const tagedNotes = useTagedNotes();
             <div
                 class="text-text mt-10 text-sm capitalize dark:text-text-dark flex flex-col gap-y-4"
             >
-                <NuxtLink
+                <MainLink
+                    text="all notes"
+                    :active-link-num="1"
                     @click="
                         () => {
                             changeActiveRoute(1);
@@ -36,11 +39,6 @@ const tagedNotes = useTagedNotes();
                             router.replace('/all-notes');
                         }
                     "
-                    class="flex items-center relative gap-x-2 group p-2 text-sm rounded-lg cursor-pointer hover:bg-lightGray dark:hover:bg-lightGray-dark"
-                    :class="{
-                        ' bg-lightGray dark:bg-lightGray-dark':
-                            activeLink === 1,
-                    }"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -83,26 +81,11 @@ const tagedNotes = useTagedNotes();
                             clip-rule="evenodd"
                         />
                     </svg>
-                    All Notes
-                    <div class="absolute right-3" v-if="activeLink === 1">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            class="ml-auto flex"
-                            color="#FFF"
-                        >
-                            <path
-                                fill="#FFF"
-                                fill-rule="evenodd"
-                                d="M9.47 7.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L12.94 12 9.47 8.53a.75.75 0 0 1 0-1.06Z"
-                                clip-rule="evenodd"
-                            ></path>
-                        </svg>
-                    </div>
-                </NuxtLink>
-                <NuxtLink
+                </MainLink>
+
+                <MainLink
+                    :active-link-num="2"
+                    text="archived notes"
                     @click="
                         () => {
                             changeActiveRoute(2);
@@ -110,11 +93,6 @@ const tagedNotes = useTagedNotes();
                             router.replace('/archived-notes');
                         }
                     "
-                    class="flex items-center relative gap-x-2 group p-2 text-sm cursor-pointer rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
-                    :class="{
-                        ' bg-lightGray dark:bg-lightGray-dark':
-                            activeLink === 2,
-                    }"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -148,25 +126,7 @@ const tagedNotes = useTagedNotes();
                             d="m15 14-3.002 3L9 14M11.998 17v-7M20.934 7H3.059"
                         />
                     </svg>
-                    archived Notes
-                    <div class="absolute right-3" v-if="activeLink === 2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            class="ml-auto flex"
-                            color="#FFF"
-                        >
-                            <path
-                                fill="#FFF"
-                                fill-rule="evenodd"
-                                d="M9.47 7.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L12.94 12 9.47 8.53a.75.75 0 0 1 0-1.06Z"
-                                clip-rule="evenodd"
-                            ></path>
-                        </svg>
-                    </div>
-                </NuxtLink>
+                </MainLink>
             </div>
             <Divider :with-or-word="false" />
             <ul role="list" class="mt-2">
@@ -178,20 +138,17 @@ const tagedNotes = useTagedNotes();
                     class="mb-3 text-text text-sm dark:text-text-dark"
                     :key="index"
                 >
-                    <NuxtLink
+                    <MainLink
+                        :text="tag"
+                        :active-link-num="index + 6"
                         @click="
                             () => {
-                                changeActiveRoute(3 + index);
+                                changeActiveRoute(10 + index);
                                 changeCurrentRoute(`Taged Notes: ${tag}`);
                                 router.replace(`/tags`);
                                 tagedNotes = tag;
                             }
                         "
-                        class="flex items-center relative gap-x-2 group p-2 text-sm cursor-pointer rounded-lg hover:bg-lightGray dark:hover:bg-lightGray-dark"
-                        :class="{
-                            ' bg-lightGray dark:bg-lightGray-dark':
-                                activeLink === 3 + index,
-                        }"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +160,7 @@ const tagedNotes = useTagedNotes();
                             <path
                                 class="group-hover:stroke-skyBlue"
                                 :class="[
-                                    activeLink === 3 + index
+                                    activeLink === 10 + index
                                         ? ' stroke-skyBlue'
                                         : 'stroke-text dark:stroke-text-dark',
                                 ]"
@@ -216,7 +173,7 @@ const tagedNotes = useTagedNotes();
                             <path
                                 class="group-hover:stroke-skyBlue"
                                 :class="[
-                                    activeLink === 3 + index
+                                    activeLink === 10 + index
                                         ? ' stroke-skyBlue'
                                         : 'stroke-text dark:stroke-text-dark',
                                 ]"
@@ -227,28 +184,7 @@ const tagedNotes = useTagedNotes();
                                 clip-rule="evenodd"
                             ></path>
                         </svg>
-                        {{ tag }}
-                        <div
-                            class="absolute right-3"
-                            v-if="activeLink === 3 + index"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                fill="none"
-                                class="ml-auto flex"
-                                color="#FFF"
-                            >
-                                <path
-                                    fill="#FFF"
-                                    fill-rule="evenodd"
-                                    d="M9.47 7.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L12.94 12 9.47 8.53a.75.75 0 0 1 0-1.06Z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-                        </div>
-                    </NuxtLink>
+                    </MainLink>
                 </li>
             </ul>
         </aside>
