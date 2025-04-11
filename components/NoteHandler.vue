@@ -251,7 +251,7 @@ watch(body, (newVal) => {
                         v-bind="bodyAttrs"
                         v-model="body"
                         placeholder="start typing your note here..."
-                        class="resize-y bg-transparent block w-full min-h-[500px] border border-border dark:border-border-dark focus-within:outline-none rounded-md p-2 text-text dark:text-text-dark text-sm"
+                        class="resize-y bg-transparent block w-full min-h-[500px] border border-border dark:border-border-dark focus-within:outline-none rounded-md p-2 text-lightText dark:text-lighterGray-dark text-[0.8rem]"
                     >
                     </textarea>
                     <MainErrorMsg

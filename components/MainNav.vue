@@ -26,7 +26,7 @@ function goToTargetNote(id: string) {
         <div class="flex xl:items-center xl:flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[90%] bg-skyBlue p-2 rounded-md text-[0.9rem] text-center text-text dark:text-text-dark"
+                class="capitalize w-[90%] bg-skyBlue p-2 rounded-md text-[0.9rem] text-center text-white dark:text-text-dark"
             >
                 + create New Note
             </button>

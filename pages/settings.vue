@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 const activeLink = useActiveLink();
-const {signOut} = useAuth();const title = inject("title");
+const {signOut} = useAuth();
+const title = inject("title");
 useHead({
     title: `Settings | ${title}`,
 });
+const router = useRouter();
 </script>
 <template>
     <MainSection>
@@ -19,6 +21,7 @@ useHead({
                         @click="
                             () => {
                                 changeActiveRoute(3);
+                                router.replace('/settings/color-theme');
                             }
                         "
                     >
@@ -57,6 +60,7 @@ useHead({
                         @click="
                             () => {
                                 changeActiveRoute(4);
+                                router.replace('/settings/font-theme');
                             }
                         "
                     >
@@ -97,6 +101,7 @@ useHead({
                         @click="
                             () => {
                                 changeActiveRoute(5);
+                                router.replace('/settings/change-password');
                             }
                         "
                     >
@@ -165,5 +170,6 @@ useHead({
                 </li>
             </ul>
         </nav>
+        <NuxtPage />
     </MainSection>
 </template>
