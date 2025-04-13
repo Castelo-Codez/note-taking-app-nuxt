@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
-    body {
+    body[data-fonts="sans-serif"] {
         font-family: "Inter", sans-serif;
+    }
+    body[data-fonts="monospace"] {
+        font-family: "Space Mono", monospace;
+    }
+    body[data-fonts="serif"] {
+        font-family: "Arvo", serif;
     }
     input:-webkit-autofill,
     input:-webkit-autofill:focus {
@@ -12,5 +18,4 @@
     input[data-autocompleted] {
         background-color: transparent !important;
     }
-
 }
