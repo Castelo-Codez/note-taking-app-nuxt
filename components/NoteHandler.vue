@@ -100,7 +100,7 @@ watch(body, (newVal) => {
 });
 </script>
 <template>
-    <section class="grid grid-cols-1 xl:grid-cols-[3fr_1fr]">
+    <section class="grid grid-cols-1  xl:grid-cols-[2fr_1fr] 2xl:grid-cols-[3fr_1fr]">
         <section
             class="py-6 px-3 xl:border-r xl:border-r-border xl:dark:border-r-border-dark"
         >
@@ -121,7 +121,7 @@ watch(body, (newVal) => {
                     />
                 </div>
                 <div
-                    class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start"
+                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-24 items-start"
                 >
                     <div class="flex items-center gap-x-2">
                         <svg
@@ -149,7 +149,7 @@ watch(body, (newVal) => {
                             ></path>
                         </svg>
                         <span
-                            class="text-sm text-text dark:text-text-dark capitalize"
+                            class="text-[0.88rem] text-text dark:text-text-dark capitalize"
                             >tags</span
                         >
                     </div>
@@ -161,7 +161,7 @@ watch(body, (newVal) => {
                             v-model="tag"
                             v-bind="tagAttrs"
                             placeholder="Add tags separated by commas (e.g. Work, Planning)"
-                            class="block text-sm w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                            class="block text-[0.88rem] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
                         />
                         <MainErrorMsg
                             :error-msg="errors.tag as string"
@@ -171,7 +171,7 @@ watch(body, (newVal) => {
                 </div>
                 <div
                     v-if="archived"
-                    class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start"
+                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-24 items-start"
                 >
                     <div class="flex items-center gap-x-2">
                         <svg
@@ -189,7 +189,7 @@ watch(body, (newVal) => {
                             ></path>
                         </svg>
                         <span
-                            class="text-sm text-text dark:text-text-dark capitalize"
+                            class="text-[0.88rem] text-text dark:text-text-dark capitalize"
                             >status</span
                         >
                     </div>
@@ -198,7 +198,7 @@ watch(body, (newVal) => {
                             type="text"
                             disabled
                             placeholder="archived"
-                            class="block capitalize text-sm w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                            class="block capitalize text-[0.88rem] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
                         />
                         <MainErrorMsg
                             :error-msg="errors.tag as string"
@@ -207,7 +207,7 @@ watch(body, (newVal) => {
                     </div>
                 </div>
                 <div
-                    class="grid grid-cols-[110px_1fr] mt-5 gap-x-20 items-start pb-5 border-b border-b-border dark:border-b-border-dark"
+                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-24 items-start pb-5 border-b border-b-border dark:border-b-border-dark"
                 >
                     <div class="flex items-center gap-x-2">
                         <svg
@@ -231,7 +231,7 @@ watch(body, (newVal) => {
                             ></path>
                         </svg>
                         <span
-                            class="text-sm text-text dark:text-text-dark capitalize"
+                            class="text-[0.88rem] text-text dark:text-text-dark capitalize"
                             >last edited</span
                         >
                     </div>

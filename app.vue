@@ -12,7 +12,7 @@ useHead({
             content: "note talking app | front end mentor challenges",
         },
     ],
-
+    script: [{src: "/js/setFonts.js", defer: true}],
 });
 
 const notes = useNotes();
@@ -20,12 +20,6 @@ const archiveNotes = useArchivedNotes();
 watch(notes, (newVal) => {
     archiveNotes.value = newVal.filter((el) => el.archived);
 });
- 
- onMounted(() => {
-    if(window.localStorage.getItem("data-fonts")){
-  document.body.dataset.fonts = window.localStorage.getItem("data-fonts") as string
-    }
- })
 </script>
 
 <template>

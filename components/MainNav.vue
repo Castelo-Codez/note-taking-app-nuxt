@@ -10,6 +10,7 @@ function goToCreateNewNote() {
     changeActiveRoute(1);
     changeCurrentRoute("All Notes");
     router.replace("/all-notes/create-new-note");
+    currentActiveNote.value = ``;
 }
 const fullPath = router.currentRoute.value.fullPath
     .match(/\/(archived-notes|all-notes|\w+)/gi)
@@ -21,25 +22,41 @@ function goToTargetNote(id: string) {
 </script>
 <template>
     <nav
-        class="md:border-b py-6 px-3 md:dark:border-border-dark xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
+        class=" py-6 px-3  xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
     >
-        <div class="flex xl:items-center xl:flex-col">
+        <div class="flex flex-wrap  xl:flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[90%] bg-skyBlue p-2 rounded-md text-[0.9rem] text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-full  xl:w-[95%] bg-skyBlue p-2 rounded-md text-[0.9rem] text-center text-primaryText-dark dark:text-text-dark"
             >
                 + create New Note
             </button>
-            <ul class="mt-5 text-text dark:text-text-dark">
-                <li v-for="note in props.Notes" :key="note.id">
+            <ul class="mt-5 flex gap-x-3 xl:flex-col flex-wrap text-text dark:text-text-dark">
+                <li
+                    v-for="note in props.Notes"
+                    :key="note.id"
+                    class="xl:border-b xl:border-border xl:dark:border-border-dark xl:last:border-b-0 py-2"
+                >
                     <NuxtLink
                         @click="goToTargetNote(note.id)"
+                        class="cursor-pointer p-3 rounded-md flex gap-y-2 flex-col hover:bg-lightGray hover:dark:bg-lightGray-dark"
                         :class="[
-                            currentActiveNote == note.id ? ' text-red-500' : '',
+                            currentActiveNote === note.id
+                                ? 'bg-lightGray dark:bg-lightGray-dark'
+                                : '',
                         ]"
-                        class="cursor-pointer"
                     >
-                        {{ note.title }}
+                        <span class="font-[800] text-text dark:text-text-dark">
+                            {{ note.title }}
+                        </span>
+                        <span
+                            class="text-[0.78rem] px-2 rounded-md w-fit bg-lighterGray-dark dark:bg-lighterGray text-lightText dark:text-text-dark"
+                        >
+                            {{ note.tag }}
+                        </span>
+                        <span class="text-[0.66rem]">
+                            {{ note.lastUpdated }}
+                        </span>
                     </NuxtLink>
                 </li>
             </ul>

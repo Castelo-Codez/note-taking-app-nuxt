@@ -17,12 +17,13 @@ watch(searchKeyword, (newVal) => {
 <template>
     <header>
         <div
-            class="py-5 px-7 text-text dark:text-text-dark text-[1rem] border-b border-b-border dark:border-border-dark flex justify-between items-center"
+            class="py-5 px-7  text-text dark:text-text-dark text-[1rem] border-b border-b-border dark:border-border-dark md:flex flex-wrap gap-y-2 justify-between items-center"
         >
-            <span class="text-[1.5rem] font-[800] capitalize">{{
-                currentRoute
-            }}</span>
-            <div class="flex items-center gap-x-5">
+            <span
+                class="text-[1.2rem] xl:text-[1.5rem] font-[800] capitalize"
+                >{{ currentRoute }}</span
+            >
+            <div class="flex items-center gap-x-3">
                 <SearchInput />
                 <NuxtLink
                     class="cursor-pointer"
@@ -51,5 +52,6 @@ watch(searchKeyword, (newVal) => {
                 </NuxtLink>
             </div>
         </div>
+
     </header>
 </template>

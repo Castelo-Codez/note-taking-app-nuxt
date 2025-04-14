@@ -14,8 +14,7 @@ function removeNote() {
     if (noteToDelete) {
         notes.value.splice(notes.value.indexOf(noteToDelete), 1);
     }
-        router.replace(`${prevRoute?.join("")}`);
-    
+    router.replace(`${prevRoute?.join("")}`);
 }
 function archiveNote() {
     notes.value = notes.value.map((el: Note) => {
@@ -40,7 +39,7 @@ function restoreNote() {
 <template>
     <div class="flex flex-col px-3 gap-y-3">
         <button
-            class="py-2 pl-4 items-center flex gap-x-2 rounded-md border border-darkGray dark:border-darkGray-dark"
+            class="py-2 pl-4 items-center flex flex-wrap gap-2 rounded-md border border-darkGray dark:border-darkGray-dark"
             title="archive note"
             v-if="!archived"
             @click="archiveNote"
@@ -67,7 +66,8 @@ function restoreNote() {
                     d="m15 14-3.002 3L9 14M11.998 17v-7M20.934 7H3.059"
                 />
             </svg>
-            <span class="text-text dark:text-text-dark text-[0.8rem]"
+            <span
+                class="text-text  dark:text-text-dark text-[0.8rem]"
                 >Archive Note</span
             >
         </button>

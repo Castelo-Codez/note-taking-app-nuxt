@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const activeLink = useActiveLink();
-defineProps<{
-    text: string;
+const {mobile = false} = defineProps<{
+    text?: string;
     activeLinkNum?: number;
+    mobile?: boolean;
 }>();
 </script>
 <template>
@@ -14,8 +15,13 @@ defineProps<{
         }"
     >
         <slot />
-        {{ text }}
-        <div class="absolute right-3" v-if="activeLink === activeLinkNum">
+        <span v-if="text">
+            {{ text }}
+        </span>
+        <div
+            class="absolute right-3"
+            v-if="activeLink === activeLinkNum && mobile !== true"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

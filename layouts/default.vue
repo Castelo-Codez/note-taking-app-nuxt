@@ -15,19 +15,18 @@ const filterdFromDublicates = computed(() => {
     return filterdArr;
 });
 const tagedNotes = useTagedNotes();
-
 </script>
 
 <template>
-    <div class="flex">
+    <div class="md:flex relative">
         <aside
-            class="bg-barckground dark:bg-barckground-dark p-5 pt-6 w-[250px] min-h-screen border-r-2 border-border dark:border-border-dark"
+            class="bg-barckground border-t border-border dark:border-border-dark md:border-t-0 fixed md:static dark:bg-barckground-dark p-5 pt-6 w-full md:w-[250px] md:min-h-screen bottom-0"
         >
-            <div>
+            <div class="hidden md:block">
                 <Logo />
             </div>
             <div
-                class="text-text mt-10 text-sm capitalize dark:text-text-dark flex flex-col gap-y-4"
+                class="hidden text-text mt-10 text-sm capitalize dark:text-text-dark md:flex flex-col gap-y-4"
             >
                 <MainLink
                     text="all notes"
@@ -128,8 +127,8 @@ const tagedNotes = useTagedNotes();
                     </svg>
                 </MainLink>
             </div>
-            <Divider :with-or-word="false" />
-            <ul role="list" class="mt-2">
+            <Divider class="hidden md:block" :with-or-word="false" />
+            <ul role="list" class="mt-2 hidden md:block">
                 <h3 class="capitalize mb-3 text-darkGray-dark text-[0.8rem]">
                     tags
                 </h3>
@@ -187,9 +186,10 @@ const tagedNotes = useTagedNotes();
                     </MainLink>
                 </li>
             </ul>
+            <MobileNav />
         </aside>
         <main
-            class="min-h-screen bg-barckground flex-1 dark:bg-barckground-dark"
+            class="min-h-screen border-l-2 border-border dark:border-border-dark bg-barckground flex-1 dark:bg-barckground-dark"
         >
             <Header />
             <slot />
