@@ -7,20 +7,26 @@ useHead({
     title: `Settings | ${title}`,
 });
 const router = useRouter();
+const currentRoute = useCurrentRoute();
 </script>
 <template>
     <MainSection>
         <nav
             class="md:border-b py-6 px-3 md:dark:border-border-dark xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
         >
-            <ul class="flex flex-col gap-y-5">
+            <h1
+                class="text-text text-[1.1rem] pl-2 mb-5 font-[700] capitalize dark:text-text-dark md:hidden"
+            >
+                {{ currentRoute }}
+            </h1>
+            <ul class="hidden md:flex flex-col gap-y-5">
                 <li class="text-text dark:text-text-dark">
                     <MainLink
-                        :active-link-num="3"
+                        :active-link-num="6"
                         text="Color Theme"
                         @click="
                             () => {
-                                changeActiveRoute(3);
+                                changeActiveRoute(6);
                                 router.replace('/settings/color-theme');
                             }
                         "
@@ -32,7 +38,7 @@ const router = useRouter();
                             viewBox="0 0 24 24"
                             fill="none"
                             :class="[
-                                activeLink === 3
+                                activeLink === 6
                                     ? ' stroke-skyBlue'
                                     : 'stroke-text dark:stroke-text-dark',
                             ]"
@@ -55,11 +61,12 @@ const router = useRouter();
                 </li>
                 <li class="text-text dark:text-text-dark">
                     <MainLink
-                        :active-link-num="4"
+                        :active-link-num="7"
+                        class="text-[0.88rem]"
                         text="Font Theme"
                         @click="
                             () => {
-                                changeActiveRoute(4);
+                                changeActiveRoute(7);
                                 router.replace('/settings/font-theme');
                             }
                         "
@@ -76,7 +83,7 @@ const router = useRouter();
                                 clip-rule="evenodd"
                                 d="M17.4994 9.14844H12.1927C11.7327 9.14844 11.3594 9.52094 11.3594 9.98177V10.9234C11.3594 11.3843 11.7327 11.7568 12.1927 11.7568C12.6527 11.7568 13.026 11.3843 13.026 10.9234V10.8151H13.9877V14.4893H13.6627C13.2027 14.4893 12.8294 14.8618 12.8294 15.3226C12.8294 15.7834 13.2027 16.1559 13.6627 16.1559H16.0302C16.4902 16.1559 16.8635 15.7834 16.8635 15.3226C16.8635 14.8618 16.4902 14.4893 16.0302 14.4893H15.6544V10.8151H16.666V10.9234C16.666 11.3843 17.0394 11.7568 17.4994 11.7568C17.9594 11.7568 18.3327 11.3843 18.3327 10.9234V9.98177C18.3327 9.52094 17.9594 9.14844 17.4994 9.14844Z"
                                 :class="[
-                                    activeLink === 4
+                                    activeLink === 7
                                         ? ' fill-skyBlue'
                                         : 'fill-text dark:fill-text-dark',
                                 ]"
@@ -86,7 +93,7 @@ const router = useRouter();
                                 clip-rule="evenodd"
                                 d="M10.1543 14.49H8.57518V5.50749H12.2543V6.54915C12.2543 7.00915 12.6277 7.38249 13.0877 7.38249C13.5477 7.38249 13.921 7.00915 13.921 6.54915V4.67415C13.921 4.21332 13.5477 3.84082 13.0877 3.84082H2.49935C2.03935 3.84082 1.66602 4.21332 1.66602 4.67415V6.54915C1.66602 7.00915 2.03935 7.38249 2.49935 7.38249C2.95935 7.38249 3.33268 7.00915 3.33268 6.54915V5.50749H6.90852V14.49H5.43102C4.97102 14.49 4.59768 14.8625 4.59768 15.3233C4.59768 15.7842 4.97102 16.1567 5.43102 16.1567H10.1543C10.6143 16.1567 10.9877 15.7842 10.9877 15.3233C10.9877 14.8625 10.6143 14.49 10.1543 14.49Z"
                                 :class="[
-                                    activeLink === 4
+                                    activeLink === 7
                                         ? ' fill-skyBlue'
                                         : 'fill-text dark:fill-text-dark',
                                 ]"
@@ -96,11 +103,12 @@ const router = useRouter();
                 </li>
                 <li class="text-text dark:text-text-dark">
                     <MainLink
-                        :active-link-num="5"
+                        :active-link-num="8"
+                        class="text-[0.88rem]"
                         text="Change Password"
                         @click="
                             () => {
-                                changeActiveRoute(5);
+                                changeActiveRoute(8);
                                 router.replace('/settings/change-password');
                             }
                         "
@@ -112,7 +120,7 @@ const router = useRouter();
                             viewBox="0 0 24 24"
                             fill="none"
                             :class="[
-                                activeLink === 5
+                                activeLink === 8
                                     ? ' stroke-skyBlue'
                                     : 'stroke-text dark:stroke-text-dark',
                             ]"
@@ -169,7 +177,8 @@ const router = useRouter();
                     </MainLink>
                 </li>
             </ul>
+            <MobileSettingNav />
         </nav>
-        <NuxtPage />
+        <NuxtPage class="hidden md:block" />
     </MainSection>
 </template>

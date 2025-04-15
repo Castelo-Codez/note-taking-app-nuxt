@@ -139,10 +139,10 @@ const tagedNotes = useTagedNotes();
                 >
                     <MainLink
                         :text="tag"
-                        :active-link-num="index + 6"
+                        :active-link-num="index + 20"
                         @click="
                             () => {
-                                changeActiveRoute(10 + index);
+                                changeActiveRoute(20 + index);
                                 changeCurrentRoute(`Taged Notes: ${tag}`);
                                 router.replace(`/tags`);
                                 tagedNotes = tag;
@@ -159,7 +159,7 @@ const tagedNotes = useTagedNotes();
                             <path
                                 class="group-hover:stroke-skyBlue"
                                 :class="[
-                                    activeLink === 10 + index
+                                    activeLink === 20 + index
                                         ? ' stroke-skyBlue'
                                         : 'stroke-text dark:stroke-text-dark',
                                 ]"
@@ -172,7 +172,7 @@ const tagedNotes = useTagedNotes();
                             <path
                                 class="group-hover:stroke-skyBlue"
                                 :class="[
-                                    activeLink === 10 + index
+                                    activeLink === 20 + index
                                         ? ' stroke-skyBlue'
                                         : 'stroke-text dark:stroke-text-dark',
                                 ]"

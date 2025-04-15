@@ -8,14 +8,14 @@ const {mobile = false} = defineProps<{
 </script>
 <template>
     <NuxtLink
-        class="flex items-center relative gap-x-2 group p-2 text-sm rounded-lg cursor-pointer hover:bg-lightGray dark:hover:bg-lightGray-dark"
+        class="flex items-center relative gap-x-2 group p-2 rounded-lg cursor-pointer hover:bg-lightGray dark:hover:bg-lightGray-dark"
         :class="{
             ' bg-lightGray dark:bg-lightGray-dark':
                 activeLink === activeLinkNum,
         }"
     >
         <slot />
-        <span v-if="text">
+        <span v-if="text" class="text-[0.88rem] md:text-[1rem]">
             {{ text }}
         </span>
         <div
@@ -24,8 +24,8 @@ const {mobile = false} = defineProps<{
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="22"
+                height="22"
                 fill="none"
                 class="ml-auto flex"
                 color="#FFF"

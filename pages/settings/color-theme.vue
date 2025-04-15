@@ -6,6 +6,7 @@ function $changeActiveRadio(activeRadio: string) {
 }
 const getColorModeFromLocalStorge =
     window.localStorage.getItem("nuxt-color-mode");
+const currentRouter = useCurrentRoute();
 </script>
 <template>
     <SettingSection setting-name="color theme">

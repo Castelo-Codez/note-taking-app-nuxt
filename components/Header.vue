@@ -17,7 +17,7 @@ watch(searchKeyword, (newVal) => {
 <template>
     <header>
         <div
-            class="py-5 px-7  text-text dark:text-text-dark text-[1rem] border-b border-b-border dark:border-border-dark md:flex flex-wrap gap-y-2 justify-between items-center"
+            class="py-5 px-7 hidden text-text dark:text-text-dark text-[1rem] border-b border-b-border dark:border-border-dark md:flex flex-wrap gap-y-2 justify-between items-center"
         >
             <span
                 class="text-[1.2rem] xl:text-[1.5rem] font-[800] capitalize"
@@ -52,6 +52,11 @@ watch(searchKeyword, (newVal) => {
                 </NuxtLink>
             </div>
         </div>
-
+        <div class="py-8 md:hidden px-6 bg-darkerGray dark:bg-darkerGray-dark relative">
+            <Logo />
+            <div
+                class="absolute -bottom-1 w-full h-4 bg-barckground dark:bg-barckground-dark left-0 rounded-t-3xl"
+            ></div>
+        </div>
     </header>
 </template>

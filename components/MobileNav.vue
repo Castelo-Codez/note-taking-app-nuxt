@@ -74,7 +74,7 @@ const activeLink = useActiveLink();
                 @click="
                     () => {
                         changeCurrentRoute('Settings');
-                        changeActiveRoute(7);
+                        changeActiveRoute(3);
                         router.replace('/settings');
                     }
                 "
@@ -89,7 +89,7 @@ const activeLink = useActiveLink();
                 >
                     <path
                         :class="[
-                            activeLink === 7
+                            activeLink === 3
                                 ? ' fill-skyBlue'
                                 : 'fill-text dark:fill-text-dark',
                         ]"
@@ -104,7 +104,7 @@ const activeLink = useActiveLink();
             class=" sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
-                :active-link-num="3"
+                :active-link-num="4"
                 :mobile="true"
                 @click="
                     () => {
@@ -199,13 +199,13 @@ const activeLink = useActiveLink();
             class=" sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
-                :active-link-num="6"
+                :active-link-num="5"
                 :mobile="true"
                 @click="
                     () => {
-                        changeActiveRoute(6);
-                        changeCurrentRoute('Archived Notes');
-                        router.replace('/archived-notes');
+                        changeActiveRoute(5);
+                        changeCurrentRoute(`tages`);
+                        router.replace('/tags');
                     }
                 "
                 class="px-5 py-1 block sm:p-5 sm:px-9"
@@ -219,7 +219,7 @@ const activeLink = useActiveLink();
                 >
                     <path
                         :class="[
-                            activeLink === 6
+                            activeLink === 5
                                 ? ' stroke-skyBlue'
                                 : 'stroke-text dark:stroke-text-dark',
                         ]"
@@ -231,7 +231,7 @@ const activeLink = useActiveLink();
                     />
                     <path
                         :class="[
-                            activeLink === 6
+                            activeLink === 5
                                 ? ' stroke-skyBlue'
                                 : 'stroke-text dark:stroke-text-dark',
                         ]"
