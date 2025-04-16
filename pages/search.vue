@@ -30,6 +30,6 @@ useHead({
 </script>
 <template>
     <NuxtLayout name="section-layout" :notes="filterdNotes">
-        <NuxtPage />
+        <NuxtPage class="hidden md:block" />
     </NuxtLayout>
 </template>

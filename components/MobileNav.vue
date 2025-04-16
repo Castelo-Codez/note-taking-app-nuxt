@@ -6,9 +6,9 @@ const router = useRouter();
 const activeLink = useActiveLink();
 </script>
 <template>
-    <ul class="flex  justify-between items-center md:hidden">
+    <ul class="flex justify-between items-center  flex-wrap gap-y-3  md:hidden">
         <li
-            class="sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
+            class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
                 :active-link-num="1"
@@ -66,7 +66,7 @@ const activeLink = useActiveLink();
             </MainLink>
         </li>
         <li
-            class=" sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
+            class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
                 :active-link-num="7"
@@ -101,7 +101,7 @@ const activeLink = useActiveLink();
             </MainLink>
         </li>
         <li
-            class=" sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
+            class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
                 :active-link-num="4"
@@ -146,7 +146,7 @@ const activeLink = useActiveLink();
             </MainLink>
         </li>
         <li
-            class=" sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
+            class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
                 :active-link-num="2"
@@ -196,7 +196,7 @@ const activeLink = useActiveLink();
         </li>
 
         <li
-            class=" sm:border-r sm:border-border  dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
+            class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
                 :active-link-num="5"

@@ -9,6 +9,6 @@ useHead({
 </script>
 <template>
     <NuxtLayout name="section-layout" :notes="archivedNotes">
-        <NuxtPage />
+        <NuxtPage class="hidden md:block" />
     </NuxtLayout>
 </template>

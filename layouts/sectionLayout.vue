@@ -5,7 +5,7 @@ const props = defineProps<{
 </script>
 <template>
     <MainSection>
-        <MainNav :-notes="props.notes" class="hidden md:block" />
+        <MainNav :-notes="props.notes" />
         <slot />
     </MainSection>
 </template>

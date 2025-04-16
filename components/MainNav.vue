@@ -22,16 +22,18 @@ function goToTargetNote(id: string) {
 </script>
 <template>
     <nav
-        class=" py-6 px-3  xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
+        class="py-6 px-3 xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
     >
-        <div class="flex flex-wrap  xl:flex-col">
+        <div class="flex flex-wrap xl:flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-full  xl:w-[95%] bg-skyBlue p-2 rounded-md text-[0.9rem] text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-[60px] absolute -bottom-[40rem] sm:-bottom-[35rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[95%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
             >
-                + create New Note
+                + <span class="hidden md:block">create New Note</span>
             </button>
-            <ul class="mt-5 flex gap-x-3 xl:flex-col flex-wrap text-text dark:text-text-dark">
+            <ul
+                class="mt-5 flex gap-x-3 xl:flex-col flex-wrap text-text dark:text-text-dark"
+            >
                 <li
                     v-for="note in props.Notes"
                     :key="note.id"

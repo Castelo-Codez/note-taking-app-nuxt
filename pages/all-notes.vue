@@ -11,6 +11,6 @@ useHead({
         name="section-layout"
         :notes="notes.filter((el: Note) => !el.archived)"
     >
-        <NuxtPage />
+        <NuxtPage class="hidden md:block" />
     </NuxtLayout>
 </template>

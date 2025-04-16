@@ -9,7 +9,7 @@ const props = defineProps<Props>();
     <span
         aria-label="email errors"
         id="emailErrors"
-        class="flex gap-x-1 items-center mt-2 text-sm text-lightRed-dark"
+        class="flex gap-x-1 items-center mt-2 text-[0.66rem] md:text-[0.9rem] text-lightRed-dark"
         v-if="show"
     >
         <svg

@@ -100,10 +100,13 @@ watch(body, (newVal) => {
 });
 </script>
 <template>
-    <section class="grid grid-cols-1  xl:grid-cols-[2fr_1fr] 2xl:grid-cols-[3fr_1fr]">
+    <section
+        class="grid grid-cols-1 xl:grid-cols-[2fr_1fr] 2xl:grid-cols-[3fr_1fr]"
+    >
         <section
-            class="py-6 px-3 xl:border-r xl:border-r-border xl:dark:border-r-border-dark"
+            class="md:py-6 md:px-3 xl:border-r xl:border-r-border xl:dark:border-r-border-dark"
         >
+        <MobileNoteHandlerHeader :isNew="!isnew" :archived="archived" />
             <form class="w-[90%] mx-auto" @submit.prevent="onSubmit">
                 <div>
                     <input
@@ -113,7 +116,7 @@ watch(body, (newVal) => {
                         v-model="title"
                         v-bind="titleAttrs"
                         placeholder="Enter a title..."
-                        class="block text-[1.3rem] placeholder:text-text dark:placeholder:text-text-dark font-[800] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                        class="block text-[0.99rem] md:text-[1.3rem] placeholder:text-text dark:placeholder:text-text-dark font-[800] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
                     />
                     <MainErrorMsg
                         :error-msg="errors.title as string"
@@ -121,13 +124,13 @@ watch(body, (newVal) => {
                     />
                 </div>
                 <div
-                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-24 items-start"
+                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-2 md:gap-x-16 items-start"
                 >
                     <div class="flex items-center gap-x-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="21"
-                            height="21"
+                            width="24"
+                            height="24"
                             fill="none"
                             color="#FFF"
                         >
@@ -161,7 +164,7 @@ watch(body, (newVal) => {
                             v-model="tag"
                             v-bind="tagAttrs"
                             placeholder="Add tags separated by commas (e.g. Work, Planning)"
-                            class="block text-[0.88rem] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
+                            class="block text-[0.66rem] w-full p-[0.3px] bg-transparent text-text dark:text-text-dark"
                         />
                         <MainErrorMsg
                             :error-msg="errors.tag as string"
@@ -171,7 +174,7 @@ watch(body, (newVal) => {
                 </div>
                 <div
                     v-if="archived"
-                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-24 items-start"
+                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-2 md:gap-x-16 items-start"
                 >
                     <div class="flex items-center gap-x-2">
                         <svg
@@ -207,13 +210,13 @@ watch(body, (newVal) => {
                     </div>
                 </div>
                 <div
-                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-24 items-start pb-5 border-b border-b-border dark:border-b-border-dark"
+                    class="grid grid-cols-[140px_1fr] mt-5 gap-x-2 md:gap-x-16 items-start pb-5 border-b border-b-border dark:border-b-border-dark"
                 >
                     <div class="flex items-center gap-x-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
+                            width="22"
+                            height="22"
                             fill="none"
                             color="#FFF"
                         >
@@ -241,7 +244,7 @@ watch(body, (newVal) => {
                         :placeholder="
                             lastUpdated ? lastUpdated : 'not saved yet!'
                         "
-                        class="bg-transparent text-sm capitalize"
+                        class="bg-transparent text-[0.66rem] capitalize"
                     />
                 </div>
                 <div class="mt-5">
@@ -260,7 +263,7 @@ watch(body, (newVal) => {
                     />
                 </div>
                 <div
-                    class="mt-3 py-4 flex gap-x-3 border-t border-t-border dark:border-t-border-dark"
+                    class="mt-3 py-4 hidden md:flex gap-x-3 border-t border-t-border dark:border-t-border-dark"
                 >
                     <button
                         type="submit"
