@@ -9,7 +9,8 @@ useHead({
 </script>
 <template>
     <NuxtLayout
-        name="section-layout"
+        :name="'desktop-section-layout'"
+        class="hidden md:grid"
         :notes="notes.filter((el: Note) => el.tag == tagedNotes)"
     >
         <NuxtPage class="hidden md:block" />

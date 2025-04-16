@@ -29,7 +29,11 @@ useHead({
 });
 </script>
 <template>
-    <NuxtLayout name="section-layout" :notes="filterdNotes">
+    <NuxtLayout
+        class="hidden md:grid"
+        :name="'desktop-section-layout'"
+        :notes="filterdNotes"
+    >
         <NuxtPage class="hidden md:block" />
     </NuxtLayout>
 </template>

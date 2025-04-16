@@ -8,7 +8,11 @@ useHead({
 });
 </script>
 <template>
-    <NuxtLayout name="section-layout" :notes="archivedNotes">
+    <NuxtLayout
+        class="hidden md:grid"
+        :name="'desktop-section-layout'"
+        :notes="archivedNotes"
+    >
         <NuxtPage class="hidden md:block" />
     </NuxtLayout>
 </template>

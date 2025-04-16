@@ -4,6 +4,7 @@ import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const props = defineProps<{
     Notes: Note[];
 }>();
+const emit = defineEmits(["create"]);
 const currentActiveNote = ref(``);
 const router = useRouter();
 function goToCreateNewNote() {
@@ -11,6 +12,8 @@ function goToCreateNewNote() {
     changeCurrentRoute("All Notes");
     router.replace("/all-notes/create-new-note");
     currentActiveNote.value = ``;
+    emit("create");
+    console.log("anyting");
 }
 const fullPath = router.currentRoute.value.fullPath
     .match(/\/(archived-notes|all-notes|\w+)/gi)
@@ -27,7 +30,7 @@ function goToTargetNote(id: string) {
         <div class="flex flex-wrap xl:flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[60px] absolute -bottom-[40rem] sm:-bottom-[35rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[95%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-[60px] absolute z-50 -bottom-[40rem] sm:-bottom-[35rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[95%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
             >
                 + <span class="hidden md:block">create New Note</span>
             </button>

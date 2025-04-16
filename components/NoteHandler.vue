@@ -6,6 +6,7 @@ import {z} from "zod";
 import {useNotes} from "~/composables/notes";
 const router = useRouter();
 const notes = useNotes();
+const emits = defineEmits(["back"]);
 const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
 const title = defineModel("title", {
     default: "",
@@ -106,7 +107,15 @@ watch(body, (newVal) => {
         <section
             class="md:py-6 md:px-3 xl:border-r xl:border-r-border xl:dark:border-r-border-dark"
         >
-        <MobileNoteHandlerHeader :isNew="!isnew" :archived="archived" />
+            <MobileNoteHandlerHeader
+                @back="
+                    () => {
+                        emits('back');
+                    }
+                "
+                :isNew="!isnew"
+                :archived="archived"
+            />
             <form class="w-[90%] mx-auto" @submit.prevent="onSubmit">
                 <div>
                     <input

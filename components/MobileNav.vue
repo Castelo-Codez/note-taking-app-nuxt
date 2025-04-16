@@ -4,6 +4,7 @@ import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const router = useRouter();
 const activeLink = useActiveLink();
+
 </script>
 <template>
     <ul class="flex justify-between items-center  flex-wrap gap-y-3  md:hidden">
@@ -69,7 +70,7 @@ const activeLink = useActiveLink();
             class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
             <MainLink
-                :active-link-num="7"
+                :active-link-num="3"
                 :mobile="true"
                 @click="
                     () => {

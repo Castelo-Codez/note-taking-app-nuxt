@@ -5,6 +5,7 @@ defineProps<{
 }>();
 const router = useRouter();
 const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
+const emits = defineEmits(["back"]);
 </script>
 
 <template>
@@ -13,7 +14,12 @@ const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
     >
         <button
             class="flex gap-x-2 items-center"
-            @click="router.replace(`${prevRoute?.join('')}`)"
+            @click="
+                () => {
+                    router.replace(`${prevRoute?.join('')}`);
+                    emits('back');
+                }
+            "
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
