@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import {useActiveLink} from "~/composables/activeLinks";
+import useMobileCurrentPage from "~/composables/currentPage";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
+import {changeMobileRoute} from "~/helpers/changeMobileRoute";
 const router = useRouter();
 const activeLink = useActiveLink();
-
 </script>
 <template>
-    <ul class="flex justify-between items-center  flex-wrap gap-y-3  md:hidden">
+    <ul
+        class="flex justify-between items-center bg-barckground dark:bg-barckground-dark flex-wrap gap-y-3 md:hidden"
+    >
         <li
             class="sm:border-r sm:border-border dark:border-border-dark last:border-r-0 sm:flex sm:justify-center sm:items-center sm:flex-1"
         >
@@ -19,6 +22,7 @@ const activeLink = useActiveLink();
                         changeActiveRoute(1);
                         changeCurrentRoute('All Notes');
                         router.replace('/all-notes');
+                        changeMobileRoute('');
                     }
                 "
                 class="px-5 py-1 block sm:p-5 sm:px-9"
@@ -77,6 +81,7 @@ const activeLink = useActiveLink();
                         changeCurrentRoute('Settings');
                         changeActiveRoute(3);
                         router.replace('/settings');
+                        changeMobileRoute('');
                     }
                 "
                 class="px-5 py-1 block sm:p-5 sm:px-9"
@@ -112,6 +117,7 @@ const activeLink = useActiveLink();
                         changeCurrentRoute('search');
                         changeActiveRoute(4);
                         router.replace('/search');
+                        changeMobileRoute('');
                     }
                 "
                 class="px-5 py-1 block sm:p-5 sm:px-9"
@@ -157,6 +163,7 @@ const activeLink = useActiveLink();
                         changeActiveRoute(2);
                         changeCurrentRoute('Archived Notes');
                         router.replace('/archived-notes');
+                        changeMobileRoute('');
                     }
                 "
                 class="px-5 py-1 block sm:p-5 sm:px-9"
@@ -207,6 +214,7 @@ const activeLink = useActiveLink();
                         changeActiveRoute(5);
                         changeCurrentRoute(`tages`);
                         router.replace('/tags');
+                        changeMobileRoute('');
                     }
                 "
                 class="px-5 py-1 block sm:p-5 sm:px-9"

@@ -44,7 +44,7 @@ watch(searchKeyword, (newVal) => {
                 type="search"
                 id="default-search"
                 v-model="searchKeyword"
-                class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 bg-barckground dark:bg-barckground-dark dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 bg-barckground dark:bg-barckground-dark dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-[0.66rem]"
                 placeholder="Search by title, content, or tags..."
                 required
             />

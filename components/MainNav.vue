@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import useMobileCurrentPage from "~/composables/currentPage";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
+import {changeMobileRoute} from "~/helpers/changeMobileRoute";
 const props = defineProps<{
     Notes: Note[];
 }>();
@@ -13,34 +15,38 @@ function goToCreateNewNote() {
     router.replace("/all-notes/create-new-note");
     currentActiveNote.value = ``;
     emit("create");
-    console.log("anyting");
 }
-const fullPath = router.currentRoute.value.fullPath
-    .match(/\/(archived-notes|all-notes|\w+)/gi)
-    ?.join("");
+const currentMobilePage = useMobileCurrentPage();
+const fullPath = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
 function goToTargetNote(id: string) {
     currentActiveNote.value = id;
     router.replace(`${fullPath}/${id}`);
+    changeMobileRoute(id);
 }
+watch(currentMobilePage, (newVal) => {
+    if (newVal == "") {
+        currentActiveNote.value = "";
+    }
+});
 </script>
 <template>
     <nav
-        class="py-6 px-3 xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
+        class="md:py-6 md:px-3 xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
     >
-        <div class="flex flex-wrap xl:flex-col">
+        <div class="flex flex-wrap flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[60px] absolute z-50 -bottom-[40rem] sm:-bottom-[35rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[95%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-[60px] fixed z-50 bottom-[10rem] sm:-bottom-[35rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[95%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
             >
                 + <span class="hidden md:block">create New Note</span>
             </button>
             <ul
-                class="mt-5 flex gap-x-3 xl:flex-col flex-wrap text-text dark:text-text-dark"
+                class="md:mt-5 flex gap-x-3 flex-col flex-wrap text-text dark:text-text-dark"
             >
                 <li
                     v-for="note in props.Notes"
                     :key="note.id"
-                    class="xl:border-b xl:border-border xl:dark:border-border-dark xl:last:border-b-0 py-2"
+                    class="border-b border-border dark:border-border-dark last:border-b-0 py-2"
                 >
                     <NuxtLink
                         @click="goToTargetNote(note.id)"

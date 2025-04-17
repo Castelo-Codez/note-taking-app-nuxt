@@ -13,6 +13,11 @@ useHead({
         :name="'desktop-section-layout'"
         :notes="archivedNotes"
     >
-        <NuxtPage class="hidden md:block" />
+        <NuxtPage class="hidden md:grid" />
     </NuxtLayout>
+    <NuxtLayout
+        :name="'mobile-section-layout'"
+        class="md:hidden"
+        :notes="archivedNotes"
+    />
 </template>

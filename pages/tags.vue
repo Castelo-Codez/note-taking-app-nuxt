@@ -13,6 +13,6 @@ useHead({
         class="hidden md:grid"
         :notes="notes.filter((el: Note) => el.tag == tagedNotes)"
     >
-        <NuxtPage class="hidden md:block" />
+        <NuxtPage class="hidden md:grid" />
     </NuxtLayout>
 </template>

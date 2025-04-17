@@ -4,6 +4,7 @@ import {useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/zod";
 import {z} from "zod";
 import {useNotes} from "~/composables/notes";
+import {changeMobileRoute} from "~/helpers/changeMobileRoute";
 const router = useRouter();
 const notes = useNotes();
 const emits = defineEmits(["back"]);
@@ -38,6 +39,7 @@ const schema = toTypedSchema(
 const {defineField, errors, handleSubmit} = useForm({
     validationSchema: schema,
 });
+
 const arrayOfMonths = [
     "Jan",
     "Feb",
@@ -81,6 +83,7 @@ const onSubmit = handleSubmit((values) => {
         ];
     }
     router.replace(`${prevRoute?.join("")}`);
+    changeMobileRoute("");
 });
 
 const [$title, titleAttrs] = defineField("title");
@@ -99,6 +102,34 @@ watch(tag, (newVal) => {
 watch(body, (newVal) => {
     $body.value = newVal;
 });
+function removeNote() {
+    const noteToDelete = notes.value.find((el: Note) => el.id == id);
+    if (noteToDelete) {
+        notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+    }
+    router.replace(`${prevRoute?.join("")}`);
+    changeMobileRoute("");
+}
+function archiveNote() {
+    notes.value = notes.value.map((el: Note) => {
+        if (el.id == id) {
+            return {...el, archived: true};
+        }
+        return el;
+    });
+    router.replace(`${prevRoute?.join("")}`);
+    changeMobileRoute("");
+}
+function restoreNote() {
+    notes.value = notes.value.map((el: Note) => {
+        if (el.id == id) {
+            return {...el, archived: false};
+        }
+        return el;
+    });
+    router.replace(`${prevRoute?.join("")}`);
+    changeMobileRoute("");
+}
 </script>
 <template>
     <section
@@ -113,10 +144,17 @@ watch(body, (newVal) => {
                         emits('back');
                     }
                 "
-                :isNew="!isnew"
+                @save="onSubmit"
+                @delete="removeNote"
+                @archive="archiveNote"
+                @restore="restoreNote"
+                :is-new="isnew"
                 :archived="archived"
             />
-            <form class="w-[90%] mx-auto" @submit.prevent="onSubmit">
+            <form
+                class="w-[90%] pb-32 md:pb-0 mx-auto"
+                @submit.prevent="onSubmit"
+            >
                 <div>
                     <input
                         type="text"
@@ -272,7 +310,7 @@ watch(body, (newVal) => {
                     />
                 </div>
                 <div
-                    class="mt-3 py-4 hidden md:flex gap-x-3 border-t border-t-border dark:border-t-border-dark"
+                    class="mt-3 py-4 hidden md:flex gap-x-3 md:border-t md:border-t-border md:dark:border-t-border-dark"
                 >
                     <button
                         type="submit"
@@ -294,6 +332,7 @@ watch(body, (newVal) => {
             class="py-6 px-3 border-t border-t-border dark:border-t-border-dark xl:border-t-0"
         >
             <ArchiveOrRestoreOrDelete
+                class="hidden md:flex"
                 :archived="archived"
                 :id="id"
                 v-if="!isnew"

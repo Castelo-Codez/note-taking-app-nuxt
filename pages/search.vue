@@ -34,6 +34,6 @@ useHead({
         :name="'desktop-section-layout'"
         :notes="filterdNotes"
     >
-        <NuxtPage class="hidden md:block" />
+        <NuxtPage class="hidden md:grid" />
     </NuxtLayout>
 </template>

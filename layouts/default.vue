@@ -20,7 +20,7 @@ const tagedNotes = useTagedNotes();
 <template>
     <div class="md:flex relative">
         <aside
-            class="bg-barckground border-t border-border dark:border-border-dark md:border-t-0 fixed md:static dark:bg-barckground-dark p-5 pt-6 w-full md:w-[250px] md:min-h-screen bottom-0"
+            class="bg-barckground border-t border-border dark:border-border-dark md:border-t-0 fixed md:static dark:bg-barckground-dark p-5 pt-6 w-full md:w-[250px] md:min-h-screen bottom-0 z-10"
         >
             <div class="hidden md:block">
                 <Logo />
