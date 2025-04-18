@@ -10,6 +10,7 @@ watch(searchKeyword, (newVal) => {
         searchKeyword.value = "";
     }
     navigateTo(`/search`);
+    changeActiveRoute(4);
 });
 </script>
 

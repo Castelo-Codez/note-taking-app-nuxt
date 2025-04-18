@@ -30,7 +30,7 @@ watch(activeFont, (newVal) => {
 const currentPage = useMobileCurrentPage();
 </script>
 <template>
-    <MainSection class="p-4">
+    <MainSection class="p-2">
         <nav
             class="md:border-b md:py-6 md:px-3 md:dark:border-border-dark xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
         >

@@ -9,7 +9,6 @@ const props = defineProps<{
 }>();
 const activeLink = useActiveLink();
 const currentPage = useMobileCurrentPage();
-const currentRoute = useCurrentRoute();
 const targetNote = ref();
 watch(currentPage, (newVal) => {
     targetNote.value = props.notes.find((el) => el.id == newVal);
@@ -19,11 +18,7 @@ const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
 </script>
 <template>
     <MainSection>
-        <header
-            class="p-3 text-[1.5rem] font-[800] text-text dark:text-text-dark"
-        >
-            {{ currentRoute }}
-        </header>
+        <slot v-if="currentPage === ''" />
         <MainNav
             class="px-2"
             :-notes="props.notes"

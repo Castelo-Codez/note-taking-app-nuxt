@@ -17,9 +17,12 @@ const allNotes = computed(() => {
     >
         <NuxtPage class="hidden md:grid" />
     </NuxtLayout>
+
     <NuxtLayout
         :name="'mobile-section-layout'"
         class="md:hidden"
         :notes="allNotes"
-    />
+    >
+        <MobileCurrentRouteHeading text="All Notes" class="text-[1rem] "/>
+    </NuxtLayout>
 </template>

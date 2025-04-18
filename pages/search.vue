@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import useMobileCurrentPage from "~/composables/currentPage";
+
 const searchKeyword = useSearch();
 const notes = useNotes();
 const filterdNotes = ref<Note[]>();
@@ -27,6 +29,8 @@ const title = inject("title");
 useHead({
     title: `Search | ${title}`,
 });
+const currentPage = useMobileCurrentPage();
+const currentActiveNote = useCurrentRoute();
 </script>
 <template>
     <NuxtLayout
@@ -34,6 +38,17 @@ useHead({
         :name="'desktop-section-layout'"
         :notes="filterdNotes"
     >
-        <NuxtPage class="hidden md:grid" />
+        <NuxtPage class="hidden md:block" />
+    </NuxtLayout>
+    <NuxtLayout
+        :name="'mobile-section-layout'"
+        class="md:hidden"
+        :notes="filterdNotes"
+    >
+        <MobileCurrentRouteHeading
+            :text="currentActiveNote"
+            class="text-[1rem]"
+        />
+        <SearchInput class="p-2" v-if="currentPage === ''" />
     </NuxtLayout>
 </template>

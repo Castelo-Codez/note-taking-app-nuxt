@@ -30,9 +30,10 @@ watch(searchKeyword, (newVal) => {
                     @click="
                         () => {
                             changeCurrentRoute('Settings');
-                            
+
                             router.replace('/settings');
-                            changeActiveRoute(3)
+                            changeActiveRoute(3);
+                            
                         }
                     "
                 >
@@ -53,7 +54,9 @@ watch(searchKeyword, (newVal) => {
                 </NuxtLink>
             </div>
         </div>
-        <div class="py-8 md:hidden px-6 bg-darkerGray dark:bg-darkerGray-dark relative">
+        <div
+            class="py-8 md:hidden px-6 bg-darkerGray dark:bg-darkerGray-dark relative"
+        >
             <Logo />
             <div
                 class="absolute -bottom-1 w-full h-4 bg-barckground dark:bg-barckground-dark left-0 rounded-t-3xl"
