@@ -5,7 +5,7 @@ import User from "~/server/db/User";
 import {connect} from "mongoose";
 import * as bcrypt from "bcrypt";
 export default NuxtAuthHandler({
-    secret: useRuntimeConfig().authSecret,
+    secret: useRuntimeConfig().secret,
     pages: {
         signIn: "/auth",
         error: "/auth",
@@ -25,7 +25,7 @@ export default NuxtAuthHandler({
             },
             async authorize(credentials: any, req: any) {
                 const {email, password} = credentials;
-                return connect(useRuntimeConfig().dbUrl).then(async () => {
+                return connect(process.env.DB_URL as string).then(async () => {
                     const userIsFound = await User.findOne({email});
                     if (userIsFound) {
                         let encryptedPassword = userIsFound.password;

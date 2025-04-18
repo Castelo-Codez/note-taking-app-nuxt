@@ -33,6 +33,7 @@ function restoreNote() {
         return el;
     });
     router.replace(`${prevRoute?.join("")}`);
+    console.log("restore")
 }
 </script>
 

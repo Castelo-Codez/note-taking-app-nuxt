@@ -320,7 +320,12 @@ function restoreNote() {
                     </button>
                     <button
                         type="button"
-                        @click="router.replace(`${prevRoute?.join('')}`)"
+                        @click="
+                            () => {
+                                changeMobileRoute('');
+                                router.replace(`${prevRoute?.join('')}`);
+                            }
+                        "
                         class="text-lighterGray dark:text-lighterGray-dark bg-darkerGray dark:bg-darkerGray-dark text-[0.8rem] rounded-md p-2 px-4"
                     >
                         Cancel

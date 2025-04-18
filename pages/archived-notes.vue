@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {useArchivedNotes} from "~/composables/archivedNotes";
 
-const archivedNotes = useArchivedNotes();
+const archivedNotes = useNotes();
 const title = inject("title");
 useHead({
     title: `Archived Notes | ${title}`,
@@ -11,13 +10,13 @@ useHead({
     <NuxtLayout
         class="hidden md:grid"
         :name="'desktop-section-layout'"
-        :notes="archivedNotes"
+        :notes="archivedNotes.filter((el) => el.archived)"
     >
         <NuxtPage class="hidden md:grid" />
     </NuxtLayout>
     <NuxtLayout
         :name="'mobile-section-layout'"
         class="md:hidden"
-        :notes="archivedNotes"
+        :notes="archivedNotes.filter((el) => el.archived)"
     />
 </template>

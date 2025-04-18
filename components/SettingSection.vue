@@ -4,8 +4,8 @@ defineProps<{
 }>();
 </script>
 <template>
-    <section class="p-10">
-        <SettingsArticle :setting-name="settingName" />
+    <section class="p-2 md:p-10">
+        <SettingsArticle :setting-name="settingName" class=" hidden md:block" />
         <slot />
     </section>
 </template>

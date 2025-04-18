@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const title = "Note Taking App";
 provide("title", title);
-
 useHead({
     title: `${title}`,
     meta: [
@@ -12,13 +11,10 @@ useHead({
             content: "note talking app | front end mentor challenges",
         },
     ],
+    htmlAttrs: {
+        lang: "en-us",
+    },
     script: [{src: "/js/setFonts.js", defer: true}],
-});
-
-const notes = useNotes();
-const archiveNotes = useArchivedNotes();
-watch(notes, (newVal) => {
-    archiveNotes.value = newVal.filter((el) => el.archived);
 });
 </script>
 

@@ -30,8 +30,9 @@ watch(searchKeyword, (newVal) => {
                     @click="
                         () => {
                             changeCurrentRoute('Settings');
-                            changeActiveRoute(0);
+                            
                             router.replace('/settings');
+                            changeActiveRoute(3)
                         }
                     "
                 >

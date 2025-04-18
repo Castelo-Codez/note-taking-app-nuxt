@@ -1,7 +1,10 @@
 <script setup>
 const router = useRouter();
 const currentRoute = useCurrentRoute();
+const activeLink = useActiveLink();
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
+import {changeMobileRoute} from "~/helpers/changeMobileRoute";
+const {signOut} = useAuth();
 </script>
 <template>
     <ul class="md:hidden flex flex-col gap-y-5">
@@ -15,6 +18,7 @@ import {changeActiveRoute} from "~/helpers/changeActiveLink";
                     () => {
                         changeActiveRoute(6);
                         router.replace('/settings/color-theme');
+                        changeMobileRoute('colorTheme');
                     }
                 "
             >
@@ -56,6 +60,7 @@ import {changeActiveRoute} from "~/helpers/changeActiveLink";
                     () => {
                         changeActiveRoute(7);
                         router.replace('/settings/font-theme');
+                        changeMobileRoute('fontsTheme');
                     }
                 "
             >
@@ -129,9 +134,9 @@ import {changeActiveRoute} from "~/helpers/changeActiveLink";
             <MainLink
                 text="Log Out"
                 @click="
-                    () => {
+                    async () => {
                         changeActiveRoute(0);
-                        signOut();
+                        await signOut();
                     }
                 "
             >

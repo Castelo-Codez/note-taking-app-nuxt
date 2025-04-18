@@ -31,12 +31,12 @@ watch(currentMobilePage, (newVal) => {
 </script>
 <template>
     <nav
-        class="md:py-6 md:px-3 xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
+        class="pb-20 md:py-6 md:px-3 xl:border-r xl:border-border xl:dark:border-border-dark min-h-full"
     >
         <div class="flex flex-wrap flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[60px] fixed z-50 bottom-[10rem] sm:-bottom-[35rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[95%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-[60px]  fixed z-50 bottom-[10rem] sm:bottom-[10rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[100%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
             >
                 + <span class="hidden md:block">create New Note</span>
             </button>

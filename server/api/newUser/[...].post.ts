@@ -1,4 +1,4 @@
-import {connect} from "mongoose";
+import {connect, StringExpression} from "mongoose";
 import User from "~/server/db/User";
 
 export default defineEventHandler(async (event) => {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
         password: string;
         username: string;
     } = {email, password, username};
-    return connect(useRuntimeConfig().dbUrl)
+    return connect(useRuntimeConfig().dbUrl as string)
         .then(async () => {
             try {
                 let newUser = await User.create({

@@ -12,7 +12,7 @@ const currentPage = useMobileCurrentPage();
 const currentRoute = useCurrentRoute();
 const targetNote = ref();
 watch(currentPage, (newVal) => {
-    targetNote.value = props.notes.find((el) => el.id == currentPage.value);
+    targetNote.value = props.notes.find((el) => el.id == newVal);
 });
 const router = useRouter();
 const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
@@ -51,7 +51,13 @@ const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
             :isnew="true"
         />
         <NoteHandler
-            v-if="currentPage !== '' && currentPage !== 'createNewNote'"
+            v-if="
+                currentPage !== '' &&
+                currentPage !== 'createNewNote' &&
+                currentPage !== 'changeTheme' &&
+                currentPage !== 'changeFonts' &&
+                currentPage !== 'resetPassword'
+            "
             @back="changeMobileRoute('')"
             :key="targetNote.id"
             :isnew="false"

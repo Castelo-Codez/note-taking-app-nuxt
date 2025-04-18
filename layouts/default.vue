@@ -2,6 +2,7 @@
 import {useActiveLink} from "~/composables/activeLinks";
 import {changeActiveRoute} from "~/helpers/changeActiveLink";
 import changeCurrentRoute from "~/helpers/changeCurrentRoute";
+import {changeMobileRoute} from "~/helpers/changeMobileRoute";
 const router = useRouter();
 const activeLink = useActiveLink();
 const notes = useNotes();
@@ -14,6 +15,7 @@ const filterdFromDublicates = computed(() => {
     });
     return filterdArr;
 });
+
 const tagedNotes = useTagedNotes();
 </script>
 
@@ -36,6 +38,7 @@ const tagedNotes = useTagedNotes();
                             changeActiveRoute(1);
                             changeCurrentRoute('All Notes');
                             router.replace('/all-notes');
+                            changeMobileRoute('');
                         }
                     "
                 >
@@ -90,6 +93,7 @@ const tagedNotes = useTagedNotes();
                             changeActiveRoute(2);
                             changeCurrentRoute('Archived Notes');
                             router.replace('/archived-notes');
+                            changeMobileRoute('');
                         }
                     "
                 >
@@ -146,6 +150,7 @@ const tagedNotes = useTagedNotes();
                                 changeCurrentRoute(`Taged Notes: ${tag}`);
                                 router.replace(`/tags`);
                                 tagedNotes = tag;
+                                changeMobileRoute('');
                             }
                         "
                     >

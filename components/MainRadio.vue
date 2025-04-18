@@ -12,7 +12,7 @@ defineProps<{
         :class="{
             ' bg-lightGray dark:bg-lightGray-dark': activeRadio === labelText,
         }"
-        class="flex p-4 cursor-pointer relative border border-border dark:border-border-dark items-center rounded-lg"
+        class="flex p-4   cursor-pointer relative border border-border dark:border-border-dark items-center rounded-lg"
     >
         <div class="flex items-center gap-x-4">
             <span
@@ -43,7 +43,7 @@ defineProps<{
                     ? ' p-[0.33rem] border-4 border-skyBlue dark:border-skyBlue-dark bg-text-dark'
                     : 'border p-[0.55rem]  border-border dark:border-border-dark',
             ]"
-            class="absolute top-2/4 -translate-y-2/4 right-8 rounded-full border border-border dark:border-border-dark"
+            class="absolute right-2 top-2/4 -translate-y-2/4 md:right-8 rounded-full border border-border dark:border-border-dark"
         ></div>
         <input type="radio"  :id="labelText" class="hidden" />
     </label>

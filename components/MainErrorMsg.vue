@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-    errorMsg: string;
+    errorMsg: string | undefined;
     show: string | boolean;
 }
 const props = defineProps<Props>();

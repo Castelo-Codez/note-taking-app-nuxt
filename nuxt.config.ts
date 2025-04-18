@@ -27,12 +27,14 @@ export default defineNuxtConfig({
         clientId: process.env.CLIENT_ID,
         clientSec: process.env.CLIENT_SEC,
         dbUrl: process.env.DB_URL,
+        secret: process.env.CLIENT_AUTH_SEC,
     },
     auth: {
         isEnabled: true,
         disableServerSideAuth: false,
         globalAppMiddleware: true,
-
+        // originEnvKey: process.env.NUXT_AUTH_ORIGIN,
+        //  baseURL: process.env.AUTH_BASE_URL || "http://localhost:5000/api/auth",
         provider: {
             type: "authjs",
             trustHost: false,
