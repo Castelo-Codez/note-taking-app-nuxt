@@ -54,7 +54,7 @@ const arrayOfMonths = [
     "Nov",
     "Dec",
 ];
-const onSubmit = handleSubmit((values) => {
+const onSubmit = handleSubmit(async (values) => {
     //@ts-expect-error
     const checkIfNoteExists: Note = notes.value.find((el: Note) => el.id == id);
     if (checkIfNoteExists) {
@@ -70,17 +70,23 @@ const onSubmit = handleSubmit((values) => {
         });
     } else {
         let uniqId = `${uniqid()}`;
-        notes.value = [
-            ...notes.value,
-            {
-                ...values,
-                id: uniqId,
-                archived: archived.value,
-                lastUpdated: `${new Date().getDate()} ${
-                    arrayOfMonths[new Date().getMonth()]
-                } ${new Date().getFullYear()}`,
-            },
-        ];
+        let addedNote = {
+            ...values,
+            id: uniqId,
+            archived: archived.value,
+            lastUpdated: `${new Date().getDate()} ${
+                arrayOfMonths[new Date().getMonth()]
+            } ${new Date().getFullYear()}`,
+        };
+
+        let req = await $fetch("/api/notes/addNote", {
+            body: addedNote,
+            method: "POST",
+        });
+        let {status} = req;
+        if (status === "Note Added") {
+            notes.value = [...notes.value, addedNote];
+        }
     }
     router.replace(`${prevRoute?.join("")}`);
     changeMobileRoute("");

@@ -1,17 +1,17 @@
-import {connect, StringExpression} from "mongoose";
+import {connect} from "mongoose";
 import User from "~/server/db/User";
 
 export default defineEventHandler(async (event) => {
     let {email, password, username} = await readBody(event);
-    if (!username) {
-        username = email.match(/\w+(?=@)/gi).join("");
-    }
+
+    username = email.match(/\w+(?=@)/gi).join("");
+
     const registerObj: {
         email: string;
         password: string;
         username: string;
     } = {email, password, username};
-    return connect(useRuntimeConfig().dbUrl as string)
+    return connect(useRuntimeConfig().dbUrl)
         .then(async () => {
             try {
                 let newUser = await User.create({

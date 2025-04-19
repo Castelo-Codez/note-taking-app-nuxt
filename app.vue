@@ -16,6 +16,12 @@ useHead({
     },
     script: [{src: "/js/setFonts.js", defer: true}],
 });
+
+const headers = useRequestHeaders(["cookie"]) as HeadersInit;
+const {data} = await useFetch("/api/getCurrentUser/**", {headers});
+let {Notes} = data.value;
+const notes = useNotes();
+notes.value = Notes;
 </script>
 
 <template>
