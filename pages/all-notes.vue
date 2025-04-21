@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useNotes} from "~/composables/notes";
-const notes = useNotes();
 const title = inject("title");
 useHead({
     title: `All Notes | ${title}`,
@@ -8,6 +7,11 @@ useHead({
 const allNotes = computed(() => {
     return notes.value.filter((el) => !el.archived);
 });
+const headers = useRequestHeaders(["cookie"]) as HeadersInit;
+const {data} = await useFetch("/api/getCurrentUser/**", {headers});
+let Notes = data.value?.Notes;
+const notes = useNotes();
+notes.value = Notes;
 </script>
 <template>
     <NuxtLayout
@@ -23,6 +27,6 @@ const allNotes = computed(() => {
         class="md:hidden"
         :notes="allNotes"
     >
-        <MobileCurrentRouteHeading text="All Notes" class="text-[1rem] "/>
+        <MobileCurrentRouteHeading text="All Notes" class="text-[1rem]" />
     </NuxtLayout>
 </template>

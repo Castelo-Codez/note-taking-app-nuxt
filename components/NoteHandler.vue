@@ -78,7 +78,6 @@ const onSubmit = handleSubmit(async (values) => {
                 arrayOfMonths[new Date().getMonth()]
             } ${new Date().getFullYear()}`,
         };
-
         let req = await $fetch("/api/notes/addNote", {
             body: addedNote,
             method: "POST",
@@ -108,10 +107,17 @@ watch(tag, (newVal) => {
 watch(body, (newVal) => {
     $body.value = newVal;
 });
-function removeNote() {
+async function removeNote() {
     const noteToDelete = notes.value.find((el: Note) => el.id == id);
+    let req = await $fetch(`/api/notes/deleteNote/${id}`, {
+        method: "delete",
+    });
+
     if (noteToDelete) {
-        notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+        let status = req.status;
+        if (status === "Note deleted") {
+            notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+        }
     }
     router.replace(`${prevRoute?.join("")}`);
     changeMobileRoute("");

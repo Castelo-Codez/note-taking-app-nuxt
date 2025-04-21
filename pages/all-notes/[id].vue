@@ -19,5 +19,6 @@ useHead({
         :body="targetNote.body"
         :title="targetNote.title"
         :last-updated="targetNote.lastUpdated"
+        
     />
 </template>

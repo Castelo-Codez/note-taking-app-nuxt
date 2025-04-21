@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import {useNotes} from "~/composables/notes";
-import {changeActiveRoute} from "~/helpers/changeActiveLink";
-import changeCurrentRoute from "~/helpers/changeCurrentRoute";
 const router = useRouter();
 const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
 const notes = useNotes();
@@ -9,10 +7,17 @@ const props = defineProps<{
     archived: boolean;
     id?: string;
 }>();
-function removeNote() {
+async function removeNote() {
     const noteToDelete = notes.value.find((el: Note) => el.id == props.id);
+    let req = await $fetch(`/api/notes/deleteNote/${props.id}`, {
+        method: "delete",
+    });
+
     if (noteToDelete) {
-        notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+        let status = req.status;
+        if (status === "Note deleted") {
+            notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+        }
     }
     router.replace(`${prevRoute?.join("")}`);
 }
@@ -33,7 +38,7 @@ function restoreNote() {
         return el;
     });
     router.replace(`${prevRoute?.join("")}`);
-    console.log("restore")
+    console.log("restore");
 }
 </script>
 
@@ -67,8 +72,7 @@ function restoreNote() {
                     d="m15 14-3.002 3L9 14M11.998 17v-7M20.934 7H3.059"
                 />
             </svg>
-            <span
-                class="text-text  dark:text-text-dark text-[0.8rem]"
+            <span class="text-text dark:text-text-dark text-[0.8rem]"
                 >Archive Note</span
             >
         </button>

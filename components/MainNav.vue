@@ -15,6 +15,7 @@ function goToCreateNewNote() {
     router.replace("/all-notes/create-new-note");
     currentActiveNote.value = ``;
     emit("create");
+    changeMobileRoute("createNewNote");
 }
 const currentMobilePage = useMobileCurrentPage();
 const fullPath = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
@@ -36,7 +37,7 @@ watch(currentMobilePage, (newVal) => {
         <div class="flex flex-wrap flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[60px]  fixed z-50 bottom-[10rem] sm:bottom-[10rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[100%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-[60px] fixed z-50 bottom-[10rem] sm:bottom-[10rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[100%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
             >
                 + <span class="hidden md:block">create New Note</span>
             </button>
