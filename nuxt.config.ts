@@ -33,8 +33,10 @@ export default defineNuxtConfig({
         isEnabled: true,
         disableServerSideAuth: false,
         globalAppMiddleware: true,
-       // originEnvKey: process.env.NUXT_AUTH_ORIGIN,
-       // baseURL: process.env.AUTH_BASE_URL || "http://localhost:5000/api/auth",
+        originEnvKey: process.env.NUXT_AUTH_ORIGIN,
+        baseURL: process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}/api/auth`
+            : undefined,
         provider: {
             type: "authjs",
             trustHost: false,

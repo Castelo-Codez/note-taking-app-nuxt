@@ -5,7 +5,7 @@ import User from "~/server/db/User";
 import {connect} from "mongoose";
 import * as bcrypt from "bcrypt";
 export default NuxtAuthHandler({
-    secret: useRuntimeConfig().secret,
+    secret: process.env.CLIENT_AUTH_SEC,
     pages: {
         signIn: "/auth",
         error: "/auth",
@@ -13,8 +13,8 @@ export default NuxtAuthHandler({
     providers: [
         //@ts-expect-error
         GithubProvider.default({
-            clientId: useRuntimeConfig().clientId,
-            clientSecret: useRuntimeConfig().clientSec,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SEC,
         }),
         //@ts-expect-error
         Credentials.default({

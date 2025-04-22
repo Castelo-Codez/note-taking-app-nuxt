@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
         password: string;
         username: string;
     } = {email, password, username};
-    return connect(useRuntimeConfig().dbUrl)
+    return connect(process.env.DB_URL as string)
         .then(async () => {
             try {
                 let newUser = await User.create({

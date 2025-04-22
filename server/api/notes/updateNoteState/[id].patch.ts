@@ -3,7 +3,7 @@ import User from "~/server/db/User";
 export default defineEventHandler(async (event) => {
     let id = getRouterParam(event, "id");
     let { status } = await readBody(event);
-    return connect(useRuntimeConfig().dbUrl)
+return connect(process.env.DB_URL as string)
         .then(async () => {
             await User.updateOne(
                 {

@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
     let session = await getServerSession(event);
     const {user} = session;
     let {email, username} = user;
-    return connect(useRuntimeConfig().dbUrl)
+    return connect(process.env.DB_URL as string)
         .then(async () => {
             let checkEmail = await User.findOne({email});
             if (checkEmail) {

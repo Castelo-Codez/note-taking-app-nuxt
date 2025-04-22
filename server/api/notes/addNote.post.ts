@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     let session = await getServerSession(event);
     let {user} = session;
     let {email} = user;
-    return connect(useRuntimeConfig().dbUrl)
+    return connect(process.env.DB_URL as string)
         .then(async () => {
             await User.updateOne(
                 {
