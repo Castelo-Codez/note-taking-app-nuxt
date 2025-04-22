@@ -54,20 +54,43 @@ const arrayOfMonths = [
     "Nov",
     "Dec",
 ];
+const [$title, titleAttrs] = defineField("title");
+$title.value = title.value;
+const [$tag, tagAttrs] = defineField("tag");
+$tag.value = tag.value;
+const [$body, bodyAttrs] = defineField("body");
+$body.value = body.value;
+
+watch(title, (newVal) => {
+    $title.value = newVal;
+});
+watch(tag, (newVal) => {
+    $tag.value = newVal;
+});
+watch(body, (newVal) => {
+    $body.value = newVal;
+});
 const onSubmit = handleSubmit(async (values) => {
     //@ts-expect-error
     const checkIfNoteExists: Note = notes.value.find((el: Note) => el.id == id);
     if (checkIfNoteExists) {
-        const oldNoteIndex = notes.value.indexOf(checkIfNoteExists as Note);
-        notes.value.splice(oldNoteIndex, 1);
-        notes.value.splice(oldNoteIndex, 0, {
-            ...values,
-            id,
-            archived: archived.value,
-            lastUpdated: `${new Date().getDate()} ${
-                arrayOfMonths[new Date().getMonth()]
-            } ${new Date().getFullYear()}`,
+        let req = await $fetch("/api/notes/updateNoteContent", {
+            method: "PATCH",
+            body: {...values, id},
         });
+        let {status} = req;
+        if (status === "Note updated") {
+            const oldNoteIndex = notes.value.indexOf(checkIfNoteExists as Note);
+            notes.value.splice(oldNoteIndex, 1);
+            notes.value.splice(oldNoteIndex, 0, {
+                ...values,
+                id,
+                archived: archived.value,
+                lastUpdated: `${new Date().getDate()} ${
+                    arrayOfMonths[new Date().getMonth()]
+                } ${new Date().getFullYear()}`,
+            });
+        }
     } else {
         let uniqId = `${uniqid()}`;
         let addedNote = {
@@ -91,22 +114,6 @@ const onSubmit = handleSubmit(async (values) => {
     changeMobileRoute("");
 });
 
-const [$title, titleAttrs] = defineField("title");
-$title.value = title.value;
-const [$tag, tagAttrs] = defineField("tag");
-$tag.value = tag.value;
-const [$body, bodyAttrs] = defineField("body");
-$body.value = body.value;
-
-watch(title, (newVal) => {
-    $title.value = newVal;
-});
-watch(tag, (newVal) => {
-    $tag.value = newVal;
-});
-watch(body, (newVal) => {
-    $body.value = newVal;
-});
 async function removeNote() {
     const noteToDelete = notes.value.find((el: Note) => el.id == id);
     let req = await $fetch(`/api/notes/deleteNote/${id}`, {
@@ -116,29 +123,49 @@ async function removeNote() {
     if (noteToDelete) {
         let status = req.status;
         if (status === "Note deleted") {
-            notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+            if (noteToDelete) {
+                notes.value.splice(notes.value.indexOf(noteToDelete), 1);
+            }
         }
     }
     router.replace(`${prevRoute?.join("")}`);
     changeMobileRoute("");
 }
-function archiveNote() {
-    notes.value = notes.value.map((el: Note) => {
-        if (el.id == id) {
-            return {...el, archived: true};
-        }
-        return el;
+async function archiveNote() {
+    let req = await $fetch(`/api/notes/updateNoteState/${id}`, {
+        method: "patch",
+        body: {
+            status: true,
+        },
     });
+    let {status} = req;
+    if (status === "status updated") {
+        notes.value = notes.value.map((el: Note) => {
+            if (el.id == id) {
+                return {...el, archived: true};
+            }
+            return el;
+        });
+    }
     router.replace(`${prevRoute?.join("")}`);
     changeMobileRoute("");
 }
-function restoreNote() {
-    notes.value = notes.value.map((el: Note) => {
-        if (el.id == id) {
-            return {...el, archived: false};
-        }
-        return el;
+async function restoreNote() {
+    let req = await $fetch(`/api/notes/updateNoteState/${id}`, {
+        method: "patch",
+        body: {
+            status: false,
+        },
     });
+    let {status} = req;
+    if (status === "status updated") {
+        notes.value = notes.value.map((el: Note) => {
+            if (el.id == id) {
+                return {...el, archived: false};
+            }
+            return el;
+        });
+    }
     router.replace(`${prevRoute?.join("")}`);
     changeMobileRoute("");
 }
@@ -351,7 +378,9 @@ function restoreNote() {
             <ArchiveOrRestoreOrDelete
                 class="hidden md:flex"
                 :archived="archived"
-                :id="id"
+                @delete="removeNote"
+                @restore="restoreNote"
+                @archive="archiveNote"
                 v-if="!isnew"
             />
         </section>

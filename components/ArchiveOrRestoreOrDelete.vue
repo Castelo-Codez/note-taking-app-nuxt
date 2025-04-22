@@ -1,45 +1,8 @@
 <script lang="ts" setup>
-import {useNotes} from "~/composables/notes";
-const router = useRouter();
-const prevRoute = router.currentRoute.value.fullPath.match(/\/[-\w]+/);
-const notes = useNotes();
-const props = defineProps<{
+defineProps<{
     archived: boolean;
-    id?: string;
 }>();
-async function removeNote() {
-    const noteToDelete = notes.value.find((el: Note) => el.id == props.id);
-    let req = await $fetch(`/api/notes/deleteNote/${props.id}`, {
-        method: "delete",
-    });
-
-    if (noteToDelete) {
-        let status = req.status;
-        if (status === "Note deleted") {
-            notes.value.splice(notes.value.indexOf(noteToDelete), 1);
-        }
-    }
-    router.replace(`${prevRoute?.join("")}`);
-}
-function archiveNote() {
-    notes.value = notes.value.map((el: Note) => {
-        if (el.id == props.id) {
-            return {...el, archived: true};
-        }
-        return el;
-    });
-    router.replace(`${prevRoute?.join("")}`);
-}
-function restoreNote() {
-    notes.value = notes.value.map((el: Note) => {
-        if (el.id == props.id) {
-            return {...el, archived: false};
-        }
-        return el;
-    });
-    router.replace(`${prevRoute?.join("")}`);
-    console.log("restore");
-}
+const emit = defineEmits(["delete", "archive", "restore"]);
 </script>
 
 <template>
@@ -48,7 +11,7 @@ function restoreNote() {
             class="py-2 pl-4 items-center flex flex-wrap gap-2 rounded-md border border-darkGray dark:border-darkGray-dark"
             title="archive note"
             v-if="!archived"
-            @click="archiveNote"
+            @click="() => $emit('archive')"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +42,7 @@ function restoreNote() {
         <button
             class="py-2 pl-4 items-center flex gap-x-2 rounded-md border border-darkGray dark:border-darkGray-dark"
             title="restore note"
-            @click="restoreNote"
+            @click="() => $emit('restore')"
             v-else
         >
             <svg
@@ -109,7 +72,7 @@ function restoreNote() {
         <button
             class="py-2 pl-4 items-center flex gap-x-2 rounded-md border border-darkGray dark:border-darkGray-dark"
             title="delete note"
-            @click="removeNote"
+            @click="() => $emit('delete')"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

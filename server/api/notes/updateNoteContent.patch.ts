@@ -1,26 +1,24 @@
-import {getServerSession} from "#auth";
+
 import {connect} from "mongoose";
 import User from "~/server/db/User";
-
 export default defineEventHandler(async (event) => {
-    let body = await readBody(event);
-    let session = await getServerSession(event);
-    let {user} = session;
-    let {email} = user;
+    let {tag, body, title, id} = await readBody(event);
     return connect(useRuntimeConfig().dbUrl)
         .then(async () => {
             await User.updateOne(
                 {
-                    email,
+                    "Notes.id": id,
                 },
                 {
-                    $push: {
-                        Notes: body,
+                    $set: {
+                        "Notes.$.body": body,
+                        "Notes.$.title": title,
+                        "Notes.$.tag": tag,
                     },
                 }
             );
             return {
-                status: "Note Added",
+                status: "Note updated",
             };
         })
         .catch((error) => {

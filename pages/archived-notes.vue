@@ -4,6 +4,7 @@ const title = inject("title");
 useHead({
     title: `Archived Notes | ${title}`,
 });
+
 </script>
 <template>
     <NuxtLayout

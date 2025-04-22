@@ -17,6 +17,8 @@ const filterdFromDublicates = computed(() => {
 });
 
 const tagedNotes = useTagedNotes();
+
+
 </script>
 
 <template>

@@ -9,4 +9,3 @@ interface Note {
 
 export const useNotes = () => useState<Note[]>("Notes", () => []);
 export type {Note};
-
