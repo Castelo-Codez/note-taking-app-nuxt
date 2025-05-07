@@ -18,7 +18,7 @@ export default eventHandler(async (event) => {
             if (!username) {
                 username = email.match(/\w+(?=@)/gi).join("");
             }
-            let {Notes} = await User.create({
+            let newUser = await User.create({
                 email,
                 username,
                 password: uniqid(),
@@ -26,7 +26,7 @@ export default eventHandler(async (event) => {
                 Notes: [],
             });
             return {
-                Notes,
+                Notes: [],
             };
         })
         .catch(() => {

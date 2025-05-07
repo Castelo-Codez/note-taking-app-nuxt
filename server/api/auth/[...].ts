@@ -1,9 +1,9 @@
+import {connect} from "mongoose";
+import * as bcrypt from "bcrypt";
 import {NuxtAuthHandler} from "#auth";
 import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import User from "~/server/db/User";
-import {connect} from "mongoose";
-import * as bcrypt from "bcrypt";
 export default NuxtAuthHandler({
     secret: process.env.CLIENT_AUTH_SEC,
     pages: {

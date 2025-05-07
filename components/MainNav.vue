@@ -37,9 +37,25 @@ watch(currentMobilePage, (newVal) => {
         <div class="flex flex-wrap flex-col">
             <button
                 @click="goToCreateNewNote"
-                class="capitalize w-[60px] fixed z-50 bottom-[10rem] sm:bottom-[10rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[100%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
+                class="capitalize w-[60px] flex fixed z-50 bottom-[10rem] sm:bottom-[10rem] right-8 md:static md:flex items-center justify-center gap-x-2 h-[60px] md:h-auto text-[2rem] rounded-full md:w-full md:xl:w-[100%] bg-skyBlue md:p-2 md:rounded-md md:text-[0.99rem] md:text-center text-primaryText-dark dark:text-text-dark"
             >
-                + <span class="hidden md:block">create New Note</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    class="rotate-[45deg] md:hidden"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        class="stroke-text dark:stroke-text-dark"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="m6 6 12 12M18 6 6 18"
+                    />
+                </svg>
+                <span class="hidden md:block">create New Note</span>
             </button>
             <ul
                 class="md:mt-5 flex gap-x-3 flex-col flex-wrap text-text dark:text-text-dark"
