@@ -206,7 +206,7 @@ async function restoreNote() {
                     />
                     <MainErrorMsg
                         :error-msg="errors.title as string"
-                        :show="errors.title as string"
+                        v-if="errors.title as string"
                     />
                 </div>
                 <div
@@ -254,7 +254,7 @@ async function restoreNote() {
                         />
                         <MainErrorMsg
                             :error-msg="errors.tag as string"
-                            :show="errors.tag as string"
+                            v-if="errors.tag as string"
                         />
                     </div>
                 </div>
@@ -291,7 +291,7 @@ async function restoreNote() {
                         />
                         <MainErrorMsg
                             :error-msg="errors.tag as string"
-                            :show="errors.tag as string"
+                            v-if="errors.tag as string"
                         />
                     </div>
                 </div>
@@ -345,7 +345,7 @@ async function restoreNote() {
                     </textarea>
                     <MainErrorMsg
                         :error-msg="errors.body as string"
-                        :show="errors.body as string"
+                        v-if="errors.body as string"
                     />
                 </div>
                 <div

@@ -1,26 +1,40 @@
-import {connect} from "mongoose";
+import { connectDB } from "~/server/db/checkConn";
 import User from "~/server/db/User";
 export default defineEventHandler(async (event) => {
-    let id = getRouterParam(event, "id");
-    return connect(process.env.DB_URL as string)
-        .then(async () => {
-            await User.updateOne(
-                {
-                    "Notes.id": id,
-                },
-                {
-                    $pull: {
-                        Notes: {
-                            id,
-                        },
-                    },
-                }
-            );
-            return {
-                status: "Note deleted",
-            };
+  let id = getRouterParam(event, "id");
+  await connectDB();
+  try {
+    let result = await User.updateOne(
+      {
+        "Notes.id": id,
+      },
+      {
+        $pull: {
+          Notes: {
+            id,
+          },
+        },
+      }
+    );
+    if (result.modifiedCount === 0) {
+      return sendError(
+        event,
+        createError({
+          statusCode: 404,
+          statusMessage: "Note not found",
         })
-        .catch((error) => {
-            throw new Error(`error: ${error}`);
-        });
+      );
+    }
+    return {
+      status: "Note deleted",
+    };
+  } catch (err: any) {
+    return sendError(
+      event,
+      createError({
+        statusCode: 500,
+        statusMessage: err.message,
+      })
+    );
+  }
 });

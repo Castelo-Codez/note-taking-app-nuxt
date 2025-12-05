@@ -17,20 +17,17 @@ interface UserType {
 }
 
 const UserSchema = new Schema<UserType>({
-    username: {
-        required: true,
-        type: String,
-        unique: true,
-    },
     id: {
         required: true,
         type: String,
         unique: true,
+        index: true
     },
     email: {
         required: true,
         type: String,
         unique: true,
+        index: true
     },
     password: {
         required: true,
